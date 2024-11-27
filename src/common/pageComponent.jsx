@@ -1,4 +1,3 @@
-import {useSearchParams} from "react-router-dom";
 
 const makeArr = (from, to) => {
 

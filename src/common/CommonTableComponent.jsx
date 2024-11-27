@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import PageComponent from "@/common/pageComponent.jsx";
+import PageComponent from "/src/common/pageComponent.jsx";
 import { useSearchParams, useNavigate, useLocation } from "react-router-dom";
 
 const init = {
