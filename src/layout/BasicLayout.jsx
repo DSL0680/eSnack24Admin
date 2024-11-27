@@ -1,5 +1,5 @@
-import Sidebar from "@/layout/Sidebar.jsx";
-import Header from "@/layout/Header.jsx";
+import Sidebar from "/src/layout/Sidebar.jsx";
+import Header from "/src/layout/Header.jsx";
 
 function BasicLayout({ children }) {
     return (
