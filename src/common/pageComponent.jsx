@@ -12,7 +12,8 @@ const makeArr = (from, to) => {
 
 function PageComponent({pageResponse, changePage}) {
 
-  const pageNums = makeArr(pageResponse.prevPage, pageResponse.totalPage);
+  const pageNums = makeArr(pageResponse.prevPage + 1, pageResponse.totalPage);
+
 
 
   const lis = pageNums.map(num => (
@@ -21,7 +22,7 @@ function PageComponent({pageResponse, changePage}) {
           key={num}
           className={`mx-1 px-4 py-2 text-sm font-semibold border rounded-md 
     ${
-              (pageResponse.pageRequest.page) === num
+              (pageResponse.pageRequestDTO.page) === num
                   ? 'bg-green-600 text-white border-green-600' // 활성 페이지 스타일
                   : 'bg-white text-green-500 border-green-500 hover:bg-green-600 hover:text-white' // 기본 스타일
           } 
@@ -42,7 +43,7 @@ function PageComponent({pageResponse, changePage}) {
             <button
                 className="px-3 py-1 rounded-md rounded-l-lg focus:outline-none focus:shadow-outline-purple"
                 aria-label="Previous"
-                onClick={() => changePage(pageResponse.startPage - 1)}
+                onClick={() => changePage(pageResponse.prevPage - 1)}
             >
               <svg
                   aria-hidden="true"
