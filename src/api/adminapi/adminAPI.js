@@ -21,9 +21,9 @@ export const getAllAdminList = async (page) => {
     return res.data;
 }
 
-export const editAdmin = async (admno) => {
+export const editAdmin = async (admno, updatedAdmin) => {
 
-    const res = await jwtAxios.put(`${host}/edit/${admno}`);
+    const res = await jwtAxios.put(`${host}/edit/${admno}`, updatedAdmin);
 
     console.log(res.data);
 
