@@ -123,6 +123,19 @@ function Sidebar() {
                             </li>
                         ))}
                     </ul>
+
+                    {/* 내 정보 수정 및 로그아웃 버튼 */}
+                    <div className="absolute bottom-4 left-6 w-full px-6">
+                        <button
+                            onClick={() => { /* 로그아웃 처리 로직 */ }}
+                            className="block text-sm font-semibold text-red-600 hover:text-red-800 py-2 rounded-md mt-2 w-full flex items-center"
+                        >
+                            <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24" strokeLinecap="round" strokeLinejoin="round">
+                                <path d="M17 16l4-4m0 0l-4-4m4 4H3" />
+                            </svg>
+                            로그아웃
+                        </button>
+                    </div>
                 </div>
             </aside>
         </div>

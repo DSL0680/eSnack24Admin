@@ -20,3 +20,39 @@ export const getAllAdminList = async (page) => {
 
     return res.data;
 }
+
+export const editAdmin = async (admno) => {
+
+    const res = await jwtAxios.put(`${host}/edit/${admno}`);
+
+    console.log(res.data);
+
+    return res.data;
+}
+
+export const getAdminOne = async (admno) => {
+
+    const res = await jwtAxios.get(`${host}/get/${admno}`);
+
+    console.log(res.data);
+
+    return res.data;
+}
+
+export const deleteAdmin = async (admno) => {
+
+    const res = await jwtAxios.put(`${host}/delete/${admno}`);
+
+    console.log(res.data);
+
+    return res.data;
+}
+
+export const addAdmin = async (admin) => {
+
+    const res = await jwtAxios.post(`${host}/add`, admin);
+
+    console.log(res.data);
+
+    return res.data;
+}
