@@ -4,8 +4,10 @@ import { createSlice } from '@reduxjs/toolkit';
 const initialState = {
     accessToken: null,
     refreshToken: null,
-    admno: null,
+    admno: 0,
 };
+
+// const cookies = new Cookies();
 
 const authSlice = createSlice({
     name: 'auth',
@@ -16,16 +18,15 @@ const authSlice = createSlice({
             state.refreshToken = action.payload.refreshToken;
         },
         setAdmno(state, action) {
-            state.admno = action.payload;
+            state.admno = action.payload.admno;
         },
-        clearAuth(state) {
-            state.accessToken = null;
-            state.refreshToken = null;
-            state.admno = null;
+        clearAuth(state, action) {
+
+            return {...initialState}
         },
     },
 });
 
-export const { setTokens, setAdmno, clearAuth } = authSlice.actions;
+export const { setAdmno, clearAuth, setTokens } = authSlice.actions;
 
 export default authSlice.reducer;
