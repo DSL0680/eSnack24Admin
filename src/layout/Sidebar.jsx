@@ -1,10 +1,22 @@
 import { useState, useEffect } from 'react';
-import { Link, useLocation } from "react-router-dom";
+import {Link, useLocation, useNavigate} from "react-router-dom";
+import {logoutAdmin} from "../api/adminapi/jwtAPI.js";
+import {useDispatch, useSelector} from "react-redux";
+import {clearAuth} from "../slices/authSlice.js";
+import {Cookies} from "react-cookie";
+import CommonModal from "../common/CommonModal.jsx";
 
 function Sidebar() {
     const [sidebarOpen] = useState(false);
     const [activeDropdown, setActiveDropdown] = useState(null);
+    const [modalOpen, setModalOpen] = useState(false);
     const location = useLocation();
+    const navigate = useNavigate();
+
+    const auth = useSelector((state) => state.auth);
+    const dispatch = useDispatch();
+
+    const cookies = new Cookies();
 
     const menuItems = [
         {
@@ -49,6 +61,17 @@ function Sidebar() {
         setActiveDropdown(prevState => (prevState === menuName ? null : menuName));
     };
 
+    const logoutFn = () => {
+
+        cookies.remove("auth");
+        dispatch(clearAuth());
+    }
+
+    const handleLogout = () => {
+
+        setModalOpen(true);
+    }
+
     useEffect(() => {
         const activeItem = menuItems.find(item => {
             if (item.hasDropdown) {
@@ -65,80 +88,105 @@ function Sidebar() {
     }, [location.pathname]);
 
     return (
-        <div>
-            <aside className={`z-20 ${sidebarOpen ? 'block' : 'hidden'} w-64 h-screen overflow-y-auto bg-white md:block flex-shrink-0`}>
-                <div className="py-4 text-gray-500">
-                    <Link className="ml-6 text-lg font-bold text-gray-800 flex items-center" to="/">
-                        <img src="/logo.png" alt="Logo" className="mr-2 h-8"/>
-                        CareBridge
-                    </Link>
-                    <ul className="mt-6">
-                        {menuItems.map((item, index) => (
-                            <li key={index} className="relative px-6 py-4"> {/* 간격을 늘리기 위해 py-4로 변경 */}
-                                {location.pathname === item.path && (
-                                    <span className="absolute inset-y-0 left-0 w-1 bg-green-600 rounded-tr-lg rounded-br-lg" aria-hidden="true"></span>
-                                )}
-                                <div
-                                    onClick={() => item.hasDropdown ? handleDropdownToggle(item.name) : null}
-                                    className="cursor-pointer"
-                                >
-                                    {item.hasDropdown ? (
-                                        <span className={`inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 ${activeDropdown === item.name ? 'text-green-600' : 'text-gray-800 hover:text-green-600'}`}>
-                                            <svg className="w-5 h-5" aria-hidden="true" fill="none" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" viewBox="0 0 24 24" stroke="currentColor">
+        <>
+            {modalOpen && <CommonModal
+            isOpen={modalOpen}
+            msg={"로그아웃"}
+            fn={logoutFn}
+            closeModal={() => {
+                setModalOpen(false)
+                navigate('/');
+            }}
+            cancelFn={() => setModalOpen(false)}>
+            </CommonModal>}
+
+            <div>
+                <aside
+                    className={`z-20 ${sidebarOpen ? 'block' : 'hidden'} w-64 h-screen overflow-y-auto bg-white md:block flex-shrink-0`}>
+                    <div className="py-4 text-gray-500">
+                        <Link className="ml-6 text-lg font-bold text-gray-800 flex items-center" to="/">
+                            <img src="/logo.png" alt="Logo" className="mr-2 h-8"/>
+                            CareBridge
+                        </Link>
+                        <ul className="mt-6">
+                            {menuItems.map((item, index) => (
+                                <li key={index} className="relative px-6 py-4"> {/* 간격을 늘리기 위해 py-4로 변경 */}
+                                    {location.pathname === item.path && (
+                                        <span
+                                            className="absolute inset-y-0 left-0 w-1 bg-green-600 rounded-tr-lg rounded-br-lg"
+                                            aria-hidden="true"></span>
+                                    )}
+                                    <div
+                                        onClick={() => item.hasDropdown ? handleDropdownToggle(item.name) : null}
+                                        className="cursor-pointer"
+                                    >
+                                        {item.hasDropdown ? (
+                                            <span
+                                                className={`inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 ${activeDropdown === item.name ? 'text-green-600' : 'text-gray-800 hover:text-green-600'}`}>
+                                            <svg className="w-5 h-5" aria-hidden="true" fill="none"
+                                                 strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"
+                                                 viewBox="0 0 24 24" stroke="currentColor">
                                                 <path d={item.icon}></path>
                                             </svg>
                                             <span className="ml-4">{item.name}</span>
-                                            <svg className={`ml-auto w-4 h-4 transition-transform transform ${activeDropdown === item.name ? 'rotate-180' : 'rotate-0'}`} fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
-                                                <path d="M6 9l6 6 6-6" />
+                                            <svg
+                                                className={`ml-auto w-4 h-4 transition-transform transform ${activeDropdown === item.name ? 'rotate-180' : 'rotate-0'}`}
+                                                fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+                                                <path d="M6 9l6 6 6-6"/>
                                             </svg>
                                         </span>
-                                    ) : (
-                                        <Link
-                                            className={`inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 ${location.pathname === item.path ? 'text-green-600' : 'text-gray-800 hover:text-green-600'}`}
-                                            to={item.path}
-                                        >
-                                            <svg className="w-5 h-5" aria-hidden="true" fill="none" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" viewBox="0 0 24 24" stroke="currentColor">
-                                                <path d={item.icon}></path>
-                                            </svg>
-                                            <span className="ml-4">{item.name}</span>
-                                        </Link>
-                                    )}
-                                </div>
-                                {item.hasDropdown && (
-                                    <div className={`overflow-hidden transition-all duration-300 ease-in-out ${activeDropdown === item.name ? 'max-h-40' : 'max-h-0'}`}>
-                                        <ul className="pl-10 mt-2 space-y-2">
-                                            {item.subItems.map((subItem, subIndex) => (
-                                                <li key={subIndex}>
-                                                    <Link
-                                                        to={subItem.path}
-                                                        className={`text-gray-700 hover:text-green-600 ${location.pathname === subItem.path ? 'text-green-600 font-semibold' : ''}`}
-                                                    >
-                                                        {subItem.name}
-                                                    </Link>
-                                                </li>
-                                            ))}
-                                        </ul>
+                                        ) : (
+                                            <Link
+                                                className={`inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 ${location.pathname === item.path ? 'text-green-600' : 'text-gray-800 hover:text-green-600'}`}
+                                                to={item.path}
+                                            >
+                                                <svg className="w-5 h-5" aria-hidden="true" fill="none"
+                                                     strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"
+                                                     viewBox="0 0 24 24" stroke="currentColor">
+                                                    <path d={item.icon}></path>
+                                                </svg>
+                                                <span className="ml-4">{item.name}</span>
+                                            </Link>
+                                        )}
                                     </div>
-                                )}
-                            </li>
-                        ))}
-                    </ul>
+                                    {item.hasDropdown && (
+                                        <div
+                                            className={`overflow-hidden transition-all duration-300 ease-in-out ${activeDropdown === item.name ? 'max-h-40' : 'max-h-0'}`}>
+                                            <ul className="pl-10 mt-2 space-y-2">
+                                                {item.subItems.map((subItem, subIndex) => (
+                                                    <li key={subIndex}>
+                                                        <Link
+                                                            to={subItem.path}
+                                                            className={`text-gray-700 hover:text-green-600 ${location.pathname === subItem.path ? 'text-green-600 font-semibold' : ''}`}
+                                                        >
+                                                            {subItem.name}
+                                                        </Link>
+                                                    </li>
+                                                ))}
+                                            </ul>
+                                        </div>
+                                    )}
+                                </li>
+                            ))}
+                        </ul>
 
-                    {/* 내 정보 수정 및 로그아웃 버튼 */}
-                    <div className="absolute bottom-4 left-6 w-full px-6">
-                        <button
-                            onClick={() => { /* 로그아웃 처리 로직 */ }}
-                            className="block text-sm font-semibold text-red-600 hover:text-red-800 py-2 rounded-md mt-2 w-full flex items-center"
-                        >
-                            <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24" strokeLinecap="round" strokeLinejoin="round">
-                                <path d="M17 16l4-4m0 0l-4-4m4 4H3" />
-                            </svg>
-                            로그아웃
-                        </button>
+                        {/* 내 정보 수정 및 로그아웃 버튼 */}
+                        <div className="absolute bottom-4 left-6 w-full px-6">
+                            <button
+                                onClick={handleLogout}
+                                className="block text-sm font-semibold text-red-600 hover:text-red-800 py-2 rounded-md mt-2 w-full flex items-center"
+                            >
+                                <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" strokeWidth="2"
+                                     viewBox="0 0 24 24" strokeLinecap="round" strokeLinejoin="round">
+                                    <path d="M17 16l4-4m0 0l-4-4m4 4H3"/>
+                                </svg>
+                                로그아웃
+                            </button>
+                        </div>
                     </div>
-                </div>
-            </aside>
-        </div>
+                </aside>
+            </div>
+        </>
     );
 }
 

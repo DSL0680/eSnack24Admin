@@ -36,11 +36,11 @@ const AdminLoginComponent = () => {
             <div className="flex-1 max-w-5xl mx-auto overflow-hidden bg-white rounded-lg shadow-xl">
                 <div className="flex flex-col overflow-y-auto md:flex-row">
                     {/* Left Image Section */}
-                    <div className="h-48 md:h-auto md:w-1/2">
+                    <div className="h-48 md:h-auto md:w-1/2 flex justify-center items-center">
                         <img
-                            className="object-cover w-full h-full"
-                            src="https://source.unsplash.com/800x600/?office"
-                            alt="Office"
+                            src="/eSnack24_logo_full.png"
+                            alt="Logo Image"
+                            className="w-48 md:w-64 h-auto object-contain mb-8 cursor-pointer"
                         />
                     </div>
 
