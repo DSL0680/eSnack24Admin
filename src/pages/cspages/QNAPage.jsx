@@ -23,7 +23,6 @@ export const QNAListTableColumn = [
 function QnaPage() {
     return (
         <div>
-            <div>QNA PAGE</div>
             <QNAListComponent/>
         </div>
     );
