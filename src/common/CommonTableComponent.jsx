@@ -25,7 +25,7 @@ const formatDate = (dateString) => {
     });
 };
 
-function CommonTableComponent({ name, tableHeader, column, listFn, actionSelect, bridge }) {
+function CommonTableComponent({ name, tableHeader, column, listFn, actionSelect}) {
     const [data, setData] = useState(init);
     const [searchParams, setSearchParams] = useSearchParams();
     const [page, setPage] = useState(1);
@@ -42,20 +42,10 @@ function CommonTableComponent({ name, tableHeader, column, listFn, actionSelect,
     };
 
     const linkClick = (num) => {
-
-        if(bridge) {
-
-            navigate({
-                pathname: `/${name}/read/${bridge}/${num}`,
-                search: location.search, // 현재 쿼리 스트링을 그대로 유지
-            });
-        }else {
-
-            navigate({
-                pathname: `/${name}/read/${num}`,
-                search: location.search, // 현재 쿼리 스트링을 그대로 유지
-            });
-        }
+        navigate({
+            pathname: `/${name}/read/${num}`,
+            search: location.search, // 현재 쿼리 스트링을 그대로 유지
+        })
     };
 
     useEffect(() => {
@@ -83,13 +73,7 @@ function CommonTableComponent({ name, tableHeader, column, listFn, actionSelect,
                         onClick={() => linkClick(item[column[0]])}>
                         {column.slice(1).map((temp) => (
                             <td key={temp} className="px-5 py-4 text-sm text-gray-600 text-center">
-                                {temp === 'writer' ? (
-                                    item.cgemail || item.ctemail
-                                    ): temp === 'checkAnswer' ? (
-                                    <span className={item[temp] ? "text-gray-600" : "text-red-500"}>
-                                            {item[temp] ? "답변완료" : "답변대기"}
-                                        </span>
-                                ) : temp.endsWith('Date') ? formatDate(item[temp]) : item[temp]}
+                                {temp.endsWith('date') ? formatDate(item[temp]) : item[temp]}
                             </td>
                         ))}
                     </tr>
