@@ -1,24 +1,24 @@
-import axios, {AxiosResponse, InternalAxiosRequestConfig} from "axios";
+import axios from "axios";
 import {Cookies} from "react-cookie";
-import {refreshRequest} from "../api/memberAPI.ts";
+import {refreshRequest} from "../api/adminapi/adminAPI.js";
 
 
 const cookies = new Cookies();
 
 const jwtAxios = axios.create()
 
-const beforeReq = (config: InternalAxiosRequestConfig): InternalAxiosRequestConfig => {
+const beforeReq = (config) => {
 
     console.log("beforeRequest")
 
-    const memberCookie = cookies.get("member", {path: '/'})
+    const adminCookie = cookies.get("admin", {path: '/'})
 
-    if(!memberCookie || !memberCookie.accessToken){
+    if(!adminCookie || !adminCookie.accessToken){
 
-        throw new Error('Member Cookie not found')
+        throw new Error('admin Cookie not found')
     }
 
-    const accessToken = memberCookie?.accessToken
+    const accessToken = adminCookie?.accessToken
 
     console.log("accessToken", accessToken)
 
@@ -30,14 +30,14 @@ const beforeReq = (config: InternalAxiosRequestConfig): InternalAxiosRequestConf
     return config;
 }
 
-const failReq = (error: any) => {
+const failReq = (error) => {
 
     console.log("fail Request")
 
     return Promise.reject(error)
 }
 
-const beforeRes = async (res: AxiosResponse): Promise<AxiosResponse> => {
+const beforeRes = async (res) => {
 
     console.log("beforeResponse")
 
@@ -47,17 +47,17 @@ const beforeRes = async (res: AxiosResponse): Promise<AxiosResponse> => {
 
         console.log('accessToken에 문제가 있음')
 
-        const memberCookie = cookies.get("member", {path: '/'})
-        const {accessToken, refreshToken} = memberCookie
+        const adminCookie = cookies.get("admin", {path: '/'})
+        const {accessToken, refreshToken} = adminCookie
 
         const refreshResult = await refreshRequest(accessToken, refreshToken)
 
         console.log("refreshResult", refreshResult)
 
-        memberCookie.accessToken = refreshResult.accessToken
-        memberCookie.refreshToken = refreshResult.refreshToken
+        adminCookie.accessToken = refreshResult.accessToken
+        adminCookie.refreshToken = refreshResult.refreshToken
 
-        cookies.set("member", memberCookie, {path: '/', maxAge: (60* 60 * 24 * 7)})
+        cookies.set("admin", adminCookie, {path: '/', maxAge: (60* 60 * 24 * 7)})
 
         const originalRequest = res.config
         originalRequest.headers.Authorization = `Bearer ${refreshResult.accessToken}`
@@ -68,7 +68,7 @@ const beforeRes = async (res: AxiosResponse): Promise<AxiosResponse> => {
     return res;
 }
 
-const failRes = (error: any) => {
+const failRes = (error) => {
 
     console.log("fail Response")
 
