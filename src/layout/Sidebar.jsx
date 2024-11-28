@@ -1,6 +1,5 @@
 import { useState, useEffect } from 'react';
 import {Link, useLocation, useNavigate} from "react-router-dom";
-import {logoutAdmin} from "../api/adminapi/jwtAPI.js";
 import {useDispatch, useSelector} from "react-redux";
 import {clearAuth} from "../slices/authSlice.js";
 import {Cookies} from "react-cookie";
