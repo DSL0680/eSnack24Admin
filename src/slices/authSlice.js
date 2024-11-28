@@ -1,11 +1,10 @@
 // features/authSlice.js
 import { createSlice } from '@reduxjs/toolkit';
-import {Cookies} from "react-cookie";
 
 const initialState = {
     accessToken: null,
     refreshToken: null,
-    admno: null,
+    admno: 0,
 };
 
 // const cookies = new Cookies();
@@ -18,26 +17,16 @@ const authSlice = createSlice({
             state.accessToken = action.payload.accessToken;
             state.refreshToken = action.payload.refreshToken;
         },
-        // setAccessTokens(state, action) {
-        //     state.accessToken = action.payload.accessToken;
-        //     // cookies.set("admin", {path: '/'})
-        // },
-        // setRefreshTokens(state, action) {
-        //     state.refreshToken = action.payload.refreshToken;
-        //     // cookies.set("admin", {path: '/'})
-        // },
         setAdmno(state, action) {
-            state.admno = action.payload;
-            // cookies.set("admin", {path: '/'})
+            state.admno = action.payload.admno;
         },
-        clearAuth(state) {
-            state.accessToken = null;
-            state.refreshToken = null;
-            state.admno = null;
+        clearAuth(state, action) {
+
+            return {...initialState}
         },
     },
 });
 
-export const { setAccessTokens, setRefreshTokens, setAdmno, clearAuth, setTokens } = authSlice.actions;
+export const { setAdmno, clearAuth, setTokens } = authSlice.actions;
 
 export default authSlice.reducer;

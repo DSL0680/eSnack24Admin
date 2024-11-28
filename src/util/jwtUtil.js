@@ -11,7 +11,7 @@ const beforeReq = (config) => {
 
     console.log("beforeRequest")
 
-    const adminCookie = cookies.get("admin", {path: '/'})
+    const adminCookie = cookies.get("accessToken", {path: '/'})
 
     if(!adminCookie || !adminCookie.accessToken){
 
@@ -47,7 +47,7 @@ const beforeRes = async (res) => {
 
         console.log('accessToken에 문제가 있음')
 
-        const adminCookie = cookies.get("admin", {path: '/'})
+        const adminCookie = cookies.get("accessToken", {path: '/'})
         const {accessToken, refreshToken} = adminCookie
 
         const refreshResult = await refreshRequest(accessToken, refreshToken)
@@ -57,7 +57,7 @@ const beforeRes = async (res) => {
         adminCookie.accessToken = refreshResult.accessToken
         adminCookie.refreshToken = refreshResult.refreshToken
 
-        cookies.set("admin", adminCookie, {path: '/', maxAge: (60* 60 * 24 * 7)})
+        cookies.set("accessToken", adminCookie, {path: '/', maxAge: (60* 60 * 24 * 7)})
 
         const originalRequest = res.config
         originalRequest.headers.Authorization = `Bearer ${refreshResult.accessToken}`

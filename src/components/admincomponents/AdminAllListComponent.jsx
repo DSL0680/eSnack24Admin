@@ -2,10 +2,20 @@ import React from 'react';
 import CommonTableComponent from "../../common/CommonTableComponent.jsx";
 import {getAllAdminList} from "../../api/adminapi/adminAPI.js";
 import {AdminTableColumn, AdminTableHeader} from "../../pages/adminpages/AdminIndexPage.jsx";
-import {useSelector} from "../../rtk.js";
+import {useSelector} from "react-redux";
 
 function AdminAllListComponent() {
-    const { accessToken, refreshToken, admno } = useSelector((state) => state.auth);
+
+
+    console.log("alskjfsaklfhaslkfhlas");
+
+    const { accessToken, refreshToken, admno } = useSelector((state) => {
+
+        console.log("-----------------")
+        console.log(state);
+
+        return state.auth
+    });
 
     return (
         <>

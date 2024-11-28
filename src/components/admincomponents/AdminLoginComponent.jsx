@@ -1,14 +1,13 @@
 import React, { useState } from 'react';
-import { useAppDispatch, useSelector } from "../../rtk.js";
+import {useAppDispatch, useAppSelector} from "../../rtk.js";
 import { loginAdmin } from "../../api/adminapi/jwtAPI.js";
-import authSlice, {setAdmno, setAccessTokens, setRefreshTokens, setTokens} from "../../slices/authSlice.js";
+import {setTokens, setAdmno} from "../../slices/authSlice.js";
 import {useNavigate} from "react-router-dom";
 import {Cookies} from "react-cookie";
 
 const AdminLoginComponent = () => {
     const [data, setData] = useState({ admid: '', admpw: '' });
     const dispatch = useAppDispatch();
-    const { setAccessTokens, setRefreshTokens, setAdmno } = useSelector((state) => state.auth);
 
     const navigate = useNavigate();
     const cookies = new Cookies();
@@ -23,20 +22,11 @@ const AdminLoginComponent = () => {
         await loginAdmin(data).then((res) => {
 
             dispatch(setTokens({ accessToken: res.accessToken, refreshToken: res.refreshToken }));
-            cookies.set("accesstokens", res.accessToken, {path: '/'});
-            cookies.set("refreshtokens", res.refreshToken, {path: '/'});
+            cookies.set("accessToken", res.accessToken, {path: '/'});
+            cookies.set("refreshToken", res.refreshToken, {path: '/'});
 
-            //
-            // dispatch(setAccessTokens(res.accessToken));
-            // cookies.set("accessToken", res.accessToken,  {path: '/'})
-            //
-            // dispatch(setRefreshTokens(res.refreshToken));
-            // cookies.set("refreshToken", res.refreshToken,  {path: '/'})
-
-            dispatch(setAdmno(res.admno));
-            cookies.set("admno", res.admno,  {path: '/'})
-
-            console.log(res.admno);
+            dispatch(setAdmno({ admno: (Number)(res.admno)} ));
+            cookies.set("admno", (Number)(res.admno),  {path: '/'})
 
             navigate('/admin/list')
         })
