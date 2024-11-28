@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-const CommonModal = ({ isOpen, msg, fn, closeModal }) => {
+const CommonModal = ({ isOpen, msg, fn, closeModal, cancelFn }) => {
     const [isFirstModalOpen, setIsFirstModalOpen] = useState(isOpen);
     const [isSecondModalOpen, setIsSecondModalOpen] = useState(false);
 
@@ -14,7 +14,8 @@ const CommonModal = ({ isOpen, msg, fn, closeModal }) => {
     // 취소 버튼 클릭 시 실행
     const cancelAction = () => {
         setIsFirstModalOpen(false); // 첫 번째 모달 닫기
-        closeModal(false); // 부모에게 모달 닫힘 전달
+        setIsSecondModalOpen(false);
+        cancelFn(); // 부모에게 모달 닫힘 전달
     };
 
     // 두 번째 모달 닫기
