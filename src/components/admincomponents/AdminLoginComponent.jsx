@@ -1,19 +1,14 @@
 import React, { useState } from 'react';
 import {useAppDispatch, useAppSelector} from "../../rtk.js";
 import { loginAdmin } from "../../api/adminapi/jwtAPI.js";
-import {setTokens, setAdmno} from "../../slices/authSlice.js";
+import {setAuth} from "../../slices/authSlice.js";
 import {useNavigate} from "react-router-dom";
-import {Cookies} from "react-cookie";
 
 const AdminLoginComponent = () => {
     const [data, setData] = useState({ admid: '', admpw: '' });
     const dispatch = useAppDispatch();
 
     const navigate = useNavigate();
-    const cookies = new Cookies();
-
-
-
 
     const handleClick = async (e) => {
 
@@ -21,12 +16,10 @@ const AdminLoginComponent = () => {
 
         await loginAdmin(data).then((res) => {
 
-            dispatch(setTokens({ accessToken: res.accessToken, refreshToken: res.refreshToken }));
-            cookies.set("accessToken", res.accessToken, {path: '/'});
-            cookies.set("refreshToken", res.refreshToken, {path: '/'});
-
-            dispatch(setAdmno({ admno: (Number)(res.admno)} ));
-            cookies.set("admno", (Number)(res.admno),  {path: '/'})
+            dispatch(setAuth({
+                    accessToken: res.accessToken,
+                    refreshToken: res.refreshToken,
+                    admno: (Number)(res.admno) }));
 
             navigate('/admin/list')
         })
