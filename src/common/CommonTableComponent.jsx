@@ -3,11 +3,11 @@ import PageComponent from "/src/common/pageComponent.jsx";
 import { useSearchParams, useNavigate, useLocation } from "react-router-dom";
 
 const init = {
-    list: [],
+    dtoList: [],
     endPage: 0,
     next: false,
     pageRequest: [],
-    total: 0,
+    totalCount: 0,
     startPage: 0,
     prev: false
 };
@@ -25,7 +25,7 @@ const formatDate = (dateString) => {
     });
 };
 
-function CommonTableComponent({ name, tableHeader, column, listFn, actionSelect}) {
+function CommonTableComponent({ name, tableHeader, column, listFn}) {
     const [data, setData] = useState(init);
     const [searchParams, setSearchParams] = useSearchParams();
     const [page, setPage] = useState(1);
@@ -67,7 +67,7 @@ function CommonTableComponent({ name, tableHeader, column, listFn, actionSelect}
                 </thead>
 
                 <tbody className="bg-white">
-                {data.list.map((item) => (
+                {data.dtoList.map((item) => (
                     <tr key={item[column[0]]}
                         className="hover:bg-gray-100 border-b border-gray-200"
                         onClick={() => linkClick(item[column[0]])}>
@@ -82,7 +82,7 @@ function CommonTableComponent({ name, tableHeader, column, listFn, actionSelect}
 
                 <tfoot>
                 <tr>
-                    <td colSpan={column.length + (actionSelect ? 1 : 0)}>
+                    <td colSpan={column.length}>
                         <div className="flex justify-center items-center py-4">
                             <PageComponent pageResponse={data} changePage={changePage} />
                         </div>
