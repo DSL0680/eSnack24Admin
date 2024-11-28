@@ -4,12 +4,15 @@ import { useSearchParams, useNavigate, useLocation } from "react-router-dom";
 
 const init = {
     dtoList: [],
-    endPage: 0,
+    totalPage: 0,
+    nextPage: 0,
     next: false,
-    pageRequest: [],
-    totalCount: 0,
-    startPage: 0,
-    prev: false
+    pageRequestDTO: [],
+    pageNumList: [],
+    total: 0,
+    prevPage: 0,
+    prev: false,
+    current: 0
 };
 
 const formatDate = (dateString) => {

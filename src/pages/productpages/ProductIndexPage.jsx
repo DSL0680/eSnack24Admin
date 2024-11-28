@@ -7,7 +7,7 @@ export const ProductListTableHeader = [
 ]
 
 export const ProductListTableColumn = [
-    "pfilename", "ptitle_ko", "pqty", "price", "pregdate", "pmoddate"
+    "pno", "ptitle_ko", "pqty", "price", "pregdate", "pmoddate"
 ]
 
 function ProductIndexPage() {

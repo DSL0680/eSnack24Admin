@@ -1,11 +1,9 @@
-import { Outlet } from "react-router-dom";
-import BasicLayout from "../layout/BasicLayout.jsx";
+
+import AdminLoginComponent from "../components/admincomponents/AdminLoginComponent.jsx";
 
 function IndexPage() {
     return (
-        <BasicLayout>
-            <Outlet />
-        </BasicLayout>
+        <AdminLoginComponent/>
     );
 }
 
