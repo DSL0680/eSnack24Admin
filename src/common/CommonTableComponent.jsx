@@ -43,7 +43,7 @@ function CommonTableComponent({ name, tableHeader, column, listFn}) {
 
     const linkClick = (num) => {
         navigate({
-            pathname: `/${name}/read/${num}`,
+            pathname: `/${name}/detail/${num}`,
             search: location.search, // 현재 쿼리 스트링을 그대로 유지
         })
     };
