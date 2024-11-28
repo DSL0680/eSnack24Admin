@@ -12,11 +12,11 @@ import QNAListComponent from "../../components/cscomponents/qnacomponent/QNAList
 // private boolean qdelete;
 
 export const QNAListTableHeader = [
-    "순번", "제목", "상품명", "문의자", "담당자", "등록시간" ,"답변여부"
+    "제목", "상품명", "문의자", "담당자", "등록시간" ,"답변여부"
 ]
 
 export const QNAListTableColumn = [
-    "qno", "qtitle", "ptitle_ko", "uemail", "adname", "gregdate", "gstatus"
+    "qno", "qtitle", "ptitle_ko", "uemail", "admname", "gregdate", "gstatus"
 ]
 
 

@@ -12,7 +12,7 @@ const makeArr = (from, to) => {
 
 function PageComponent({pageResponse, changePage}) {
 
-  const pageNums = makeArr(pageResponse.startPage, pageResponse.endPage);
+  const pageNums = makeArr(pageResponse.prevPage, pageResponse.totalPage);
 
 
   const lis = pageNums.map(num => (
@@ -68,7 +68,7 @@ function PageComponent({pageResponse, changePage}) {
             <button
                 className="px-3 py-1 rounded-md rounded-r-lg focus:outline-none focus:shadow-outline-purple"
                 aria-label="Next"
-                onClick={() => changePage(pageResponse.endPage + 1)}
+                onClick={() => changePage(pageResponse.totalPage + 1)}
             >
               <svg
                   className="w-4 h-4 fill-current"
