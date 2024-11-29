@@ -1,6 +1,5 @@
 import { useState, useEffect } from 'react';
 import {Link, useLocation, useNavigate} from "react-router-dom";
-import {logoutAdmin} from "../api/adminapi/jwtAPI.js";
 import {useDispatch, useSelector} from "react-redux";
 import {clearAuth} from "../slices/authSlice.js";
 import {Cookies} from "react-cookie";
@@ -17,6 +16,8 @@ function Sidebar() {
     const dispatch = useDispatch();
 
     const cookies = new Cookies();
+
+    console.log(auth.admno)
 
     const menuItems = [
         {
@@ -36,13 +37,13 @@ function Sidebar() {
             ]
         },
         {
-            name: "보호자",
+            name: "관리자",
             path: "/careTaker",
             icon: "M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10",
             hasDropdown: true,
             subItems: [
-                { name: "리스트", path: "/careTaker/list" },
-                { name: "불만 접수", path: "/careTaker/complaint" }
+                { name: "리스트", path: "/admin/list" },
+                { name: "등록", path: "/admin/reg" }
             ]
         },
         {
@@ -170,15 +171,22 @@ function Sidebar() {
                             ))}
                         </ul>
 
-                        {/* 내 정보 수정 및 로그아웃 버튼 */}
+                        {/* 로그아웃 버튼 */}
                         <div className="absolute bottom-4 left-6 w-full px-6">
                             <button
                                 onClick={handleLogout}
-                                className="block text-sm font-semibold text-red-600 hover:text-red-800 py-2 rounded-md mt-2 w-full flex items-center"
+                                className="flex items-center justify-center text-sm font-semibold text-red-600 hover:text-red-800 py-2 px-4 rounded-md mt-2 bg-white border border-transparent hover:border-red-600 transition-colors duration-150"
                             >
-                                <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" strokeWidth="2"
-                                     viewBox="0 0 24 24" strokeLinecap="round" strokeLinejoin="round">
-                                    <path d="M17 16l4-4m0 0l-4-4m4 4H3"/>
+                                <svg
+                                    className="w-5 h-5 mr-2"
+                                    fill="none"
+                                    stroke="currentColor"
+                                    strokeWidth="2"
+                                    viewBox="0 0 24 24"
+                                    strokeLinecap="round"
+                                    strokeLinejoin="round"
+                                >
+                                    <path d="M17 16l4-4m0 0l-4-4m4 4H3" />
                                 </svg>
                                 로그아웃
                             </button>
