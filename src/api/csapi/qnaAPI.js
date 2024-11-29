@@ -13,3 +13,12 @@ export const getQNAList = async (page) => {
 
     return res.data;
 }
+
+export const getQNAOne = async (qno) => {
+
+    const res = await jwtAxios.get(`${host}/detail/${qno}`);
+
+    console.log(res.data);
+
+    return res.data;
+}

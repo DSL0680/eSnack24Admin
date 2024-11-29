@@ -1,7 +1,7 @@
-import CommonTableComponent from "../../../common/CommonTableComponent.jsx";
+import CommonTableComponent from "../../common/CommonTableComponent.jsx";
 import React from "react";
-import {QNAListTableColumn, QNAListTableHeader} from "../../../pages/cspages/QNAPage.jsx";
-import {getQNAList} from "../../../api/csapi/qnaAPI.js";
+import {getQNAList} from "../../api/csapi/qnaAPI.js";
+import {QNAListTableColumn, QNAListTableHeader} from "../../pages/qnapages/QNAListPage.jsx";
 
 
 function QNAListComponent() {

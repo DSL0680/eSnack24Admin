@@ -47,7 +47,7 @@ function Sidebar() {
         },
         {
             name: "QNA",
-            path: "/cs/qna",
+            path: "/qna/list",
             icon: "M11 3.055A9.001 9.001 0 1020.945 13H11V3.055z"
         },
         {
