@@ -1,31 +1,33 @@
-import React, {useEffect, useState} from 'react';
+import React, { useState } from 'react';
 import CommonTableComponent from "../../common/CommonTableComponent.jsx";
-import {getAllAdminList, getRoleAdminList} from "../../api/adminapi/adminAPI.js";
-import {AdminTableColumn, AdminTableHeader} from "../../pages/adminpages/AdminIndexPage.jsx";
+import {getAllAdminList, getCSAdminList, getElseAdminList} from "../../api/adminapi/adminAPI.js";
+import { AdminTableColumn, AdminTableHeader } from "../../pages/adminpages/AdminIndexPage.jsx";
+import {useSearchParams} from "react-router-dom";
 
 const roles = ["ELSE", "ALL", "CS"];
 
 function AdminListComponent() {
-
     const [select, setSelect] = useState('ELSE');
-
-    const [listFn, setListFn] = useState(getAllAdminList);
+    const [listFn, setListFn] = useState(() => getElseAdminList);
+    const [searchParams, setSearchParams] = useSearchParams();
 
     const handleFilterClick = (filter) => {
 
         setSelect(filter);
+        setSearchParams({ page: 1 });
 
-        if(filter === "ALL" || filter === "CS") {
-            setListFn(getRoleAdminList(filter));
-        } else if(filter === "ELSE") {
-            setListFn(getAllAdminList());
+        if (filter === "ALL") {
+
+            setListFn(() => getAllAdminList);
+        }  else if(filter === "CS") {
+
+            setListFn(() => getCSAdminList)
+        }else if (filter === "ELSE") {
+
+            setListFn(() => getElseAdminList);
         }
+
     };
-
-    useEffect(() => {
-
-        console.log(listFn);
-    }, [select])
 
     return (
         <>
@@ -47,11 +49,10 @@ function AdminListComponent() {
 
             <CommonTableComponent
                 name={"admin"}
-                listFn={() => listFn}
+                listFn={listFn}
                 tableHeader={AdminTableHeader}
                 column={AdminTableColumn}
-            >
-            </CommonTableComponent>
+            />
         </>
     );
 }
