@@ -10,6 +10,8 @@ const init = {
     admrole: ''
 }
 
+const roles = ["ALL", "CS"];
+
 function AdminRegisterComponent() {
 
     const [data, setData] = useState(init);
@@ -72,7 +74,7 @@ function AdminRegisterComponent() {
                         type="text"
                         id="id"
                         name="admid"
-                        value={formData.admid}
+                        value={data.admid}
                         onChange={handleChange}
                         required
                         className="mt-2 p-3 w-full border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
@@ -86,7 +88,7 @@ function AdminRegisterComponent() {
                         type="password"
                         id="password"
                         name="admpw"
-                        value={formData.admpw}
+                        value={data.admpw}
                         onChange={handleChange}
                         required
                         className="mt-2 p-3 w-full border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
@@ -100,7 +102,7 @@ function AdminRegisterComponent() {
                         type="text"
                         id="name"
                         name="admname"
-                        value={formData.admname}
+                        value={data.admname}
                         onChange={handleChange}
                         required
                         className="mt-2 p-3 w-full border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
@@ -117,7 +119,7 @@ function AdminRegisterComponent() {
                                 type="button"
                                 onClick={() => handleRoleChange(role)}
                                 className={`px-4 py-2 rounded-md text-sm font-medium border focus:outline-none transition-colors ${
-                                    formData.admrole === role
+                                    data.admrole === role
                                         ? "bg-blue-600 text-white border-blue-600"
                                         : "bg-gray-100 text-gray-700 border-gray-300 hover:bg-blue-500 hover:text-white"
                                 }`}
