@@ -104,6 +104,10 @@ function CommonTableComponent({ name, tableHeader, column, listFn}) {
                                 >
                                     {col.endsWith("date")
                                         ? formatDate(item[col])
+                                        : col.endsWith("birth")
+                                        ? formatDate(item[col])
+                                        : col.endsWith("List")
+                                        ? getFormattedArray(item[col])
                                         : item[col]}
                                 </td>
                             ))}
