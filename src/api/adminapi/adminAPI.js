@@ -48,7 +48,7 @@ export const deleteAdmin = async (admno) => {
     return res.data;
 }
 
-export const addAdmin = async (admin) => {
+export const registerAdmin = async (admin) => {
 
     const res = await jwtAxios.post(`${host}/add`, admin);
 
