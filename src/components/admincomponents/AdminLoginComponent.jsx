@@ -16,7 +16,7 @@ const AdminLoginComponent = () => {
                 setAuth({
                     accessToken: res.accessToken,
                     refreshToken: res.refreshToken,
-                    admno: Number(res.admno),
+                    admno: res.admno,
                 })
             );
             navigate('/admin/list');

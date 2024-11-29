@@ -17,6 +17,8 @@ function Sidebar() {
 
     const cookies = new Cookies();
 
+    console.log(auth.admno)
+
     const menuItems = [
         {
             name: "Dashboard",
