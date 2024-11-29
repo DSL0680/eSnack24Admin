@@ -22,3 +22,12 @@ export const getQNAOne = async (qno) => {
 
     return res.data;
 }
+
+export const answerQNA = async (admno) => {
+
+    const res = await jwtAxios.post(`${host}/answer`, admno);
+
+    console.log(res.data);
+
+    return res.data;
+}

@@ -1,24 +1,47 @@
-import { useEffect, useState } from "react";
-import { getQNAOne } from "../../api/csapi/qnaAPI.js";
+import React, { useEffect, useState } from "react";
+import {answerQNA, getQNAOne} from "../../api/csapi/qnaAPI.js";
 import { useParams } from "react-router-dom";
+import CommonModal from "../../common/CommonModal.jsx";
+import {useSelector} from "react-redux";
 
 const init = {
     qno: 0,
-    admname: '',
-    ptitle_ko: '',
-    qanswer: '',
-    qcontent: '',
-    qregdate: null,
-    qmoddate: null,
-    qstatus: false, // 작성자 이메일
-    qtitle: '',   // 작성자 이름
-    uemail: '',
+    admname: '', // 담당자 이름
+    ptitle_ko: '', // 상품명
+    qanswer: '', // 답변
+    qcontent: '', // 질문내용
+    qregdate: null, // 생성날짜
+    qmoddate: null, // 수정날짜
+    qstatus: false, // 답변상태
+    qtitle: '',    // 질문제목
+    uemail: '', // 유저이메일
 };
-
 
 function QnaDetailComponent() {
     const { qno } = useParams();
     const [formData, setFormData] = useState(init);
+    const [modalOpen, setModalOpen] = useState(false);
+
+    const auth = useSelector(state => state.auth);
+
+    const handleChange = (e) => {
+        const {value} = e.target.value;
+        setFormData({
+            ...formData,
+            qanswer: value
+        })
+    }
+
+    const handleSubmit = () => {
+
+        console.log(auth.qno);
+
+        // answerQNA.then((result) => {
+        //     console.log(result);
+        //     setModalOpen(true);
+        // });
+
+    };
 
     useEffect(() => {
         getQNAOne(qno).then((res) => {
@@ -28,11 +51,23 @@ function QnaDetailComponent() {
 
 
 
+
+
     if (!formData) {
         return <div className="text-center text-gray-600">Loading...</div>;
     }
 
     return (
+        <>
+            {modalOpen && (
+                <CommonModal
+                    isOpen={modalOpen}
+                    msg={"등록"}
+                    fn={updateFn}
+                    closeModal={() => setModalOpen(false)}
+                />
+            )}
+
         <div className="max-w-5xl mx-auto bg-gray-50 rounded-lg shadow-md p-8 space-y-10 mt-10">
             {/* Header */}
             <div className="flex justify-between items-center border-b pb-4 mb-6">
@@ -48,31 +83,42 @@ function QnaDetailComponent() {
             {/* 정보 섹션 */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                 {/* 왼쪽 컬럼 */}
-                <div className="space-y-6" >
+                <div className="space-y-6">
                     <div>
-                        <label className="block text-gray-500 font-medium mb-1">질문 제목</label>
-                        <div className="p-4 border border-gray-300 bg-white rounded-md shadow-sm">
-                            <p className="text-lg text-gray-800">{formData.qtitle}</p>
-                        </div>
+                        <label className="block text-gray-500 font-medium mb-1">담당자 이름</label>
+                        <input
+                            type="text"
+                            value={formData.admname}
+                            readOnly
+                            className="w-full px-4 py-2 border border-gray-300 bg-white rounded-lg shadow-sm text-gray-800"
+                        />
                     </div>
                     <div>
-                        <label className="block text-gray-500 font-medium mb-1">작성자 정보</label>
-                        <div className="p-4 border border-gray-300 bg-white rounded-md shadow-sm">
-                            <p className="text-gray-700">
-                                <strong>이메일:</strong> {formData.cgemail || "N/A"}
-                            </p>
-                            <p className="text-gray-700">
-                                <strong>이름:</strong> {formData.cgname || "N/A"}
-                            </p>
-                        </div>
+                        <label className="block text-gray-500 font-medium mb-1">질문 제목</label>
+                        <input
+                            type="text"
+                            value={formData.qtitle}
+                            readOnly
+                            className="w-full px-4 py-2 border border-gray-300 bg-white rounded-lg shadow-sm text-gray-800"
+                        />
+                    </div>
+                    <div>
+                        <label className="block text-gray-500 font-medium mb-1">작성자 이메일</label>
+                        <input
+                            type="text"
+                            value={formData.uemail || "N/A"}
+                            readOnly
+                            className="w-full px-4 py-2 border border-gray-300 bg-white rounded-lg shadow-sm text-gray-800"
+                        />
                     </div>
                     <div>
                         <label className="block text-gray-500 font-medium mb-1">등록일</label>
-                        <div className="p-4 border border-gray-300 bg-white rounded-md shadow-sm">
-                            <p className="text-lg text-gray-800">
-                                {new Date(formData.regDate).toLocaleDateString()}
-                            </p>
-                        </div>
+                        <input
+                            type="text"
+                            value={formData.qregdate ? new Date(formData.qregdate).toLocaleDateString() : "N/A"}
+                            readOnly
+                            className="w-full px-4 py-2 border border-gray-300 bg-white rounded-lg shadow-sm text-gray-800"
+                        />
                     </div>
                 </div>
 
@@ -80,26 +126,28 @@ function QnaDetailComponent() {
                 <div className="space-y-6">
                     <div>
                         <label className="block text-gray-500 font-medium mb-1">질문 내용</label>
-                        <div className="p-4 border border-gray-300 bg-white rounded-md shadow-sm h-32 overflow-auto">
-                            <p className="text-gray-800">{formData.qcontent}</p>
-                        </div>
+                        <textarea
+                            value={formData.qcontent}
+                            readOnly
+                            className="w-full px-4 py-2 border border-gray-300 bg-white rounded-lg shadow-sm text-gray-800 h-32 resize-none"
+                        ></textarea>
                     </div>
                     <div>
                         <label className="block text-gray-500 font-medium mb-1">답변 내용</label>
-                        <div className="p-4 border border-gray-300 bg-white rounded-md shadow-sm">
-                            <textarea
-                                className="w-full h-32 p-2 bg-gray-100 text-gray-800 rounded-md resize-none"
-                                defaultValue={formData.qanswer || ""}
-                            ></textarea>
-                        </div>
+                        <textarea
+                            value={formData.qanswer}
+                            onChange={handleChange}
+                            className="w-full px-4 py-2 border border-gray-300 bg-white rounded-lg shadow-sm text-gray-800 h-32 resize-none"
+                        ></textarea>
                     </div>
                     <div>
                         <label className="block text-gray-500 font-medium mb-1">수정일</label>
-                        <div className="p-4 border border-gray-300 bg-white rounded-md shadow-sm">
-                            <p className="text-lg text-gray-800">
-                                {new Date(formData.modDate).toLocaleDateString()}
-                            </p>
-                        </div>
+                        <input
+                            type="text"
+                            value={formData.qmoddate ? new Date(formData.qmoddate).toLocaleDateString() : "N/A"}
+                            readOnly
+                            className="w-full px-4 py-2 border border-gray-300 bg-white rounded-lg shadow-sm text-gray-800"
+                        />
                     </div>
                 </div>
             </div>
@@ -108,7 +156,7 @@ function QnaDetailComponent() {
             <div className="flex justify-end space-x-4">
                 <button
                     className="px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-lg shadow-md transition duration-200 ease-in-out"
-                    onClick={() => console.log("수정")}
+                    onClick={handleSubmit}
                 >
                     수정하기
                 </button>
@@ -120,6 +168,7 @@ function QnaDetailComponent() {
                 </button>
             </div>
         </div>
+        </>
     );
 }
 
