@@ -12,10 +12,10 @@ const init = {
     total: 0,
     prevPage: 0,
     prev: false,
-    current: 0,
+    current: 0
 };
 
-const formatDate = (dateString) => {
+export const formatDate = (dateString) => {
     const date = new Date(dateString);
     date.setHours(date.getHours() + 9);
     return date.toLocaleString("ko-KR", {
@@ -28,7 +28,14 @@ const formatDate = (dateString) => {
     });
 };
 
-function CommonTableComponent({ name, tableHeader, column, listFn }) {
+const getFormattedArray = (value) => {
+    if (Array.isArray(value)) {
+        return value.join(", ");
+    }
+    return value;
+};
+
+function CommonTableComponent({ name, tableHeader, column, listFn}) {
     const [data, setData] = useState(init);
     const [loading, setLoading] = useState(false);
     const [searchParams, setSearchParams] = useSearchParams();
@@ -97,6 +104,10 @@ function CommonTableComponent({ name, tableHeader, column, listFn }) {
                                 >
                                     {col.endsWith("date")
                                         ? formatDate(item[col])
+                                        : col.endsWith("birth")
+                                        ? formatDate(item[col])
+                                        : col.endsWith("List")
+                                        ? getFormattedArray(item[col])
                                         : item[col]}
                                 </td>
                             ))}

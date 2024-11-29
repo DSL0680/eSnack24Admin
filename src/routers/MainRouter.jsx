@@ -4,6 +4,8 @@ import AdminRouter from "./AdminRouter.jsx";
 import ProductRouter from "./ProductRouter.jsx";
 import userRouter from "./UserRouter.jsx";
 import QNARouter from "./QNARouter.jsx";
+import CommunityProductRouter from "./CommunityProductRouter.jsx";
+import CommunityAllergyRouter from "./CommunityAllergyRouter.jsx";
 
 const MainRouter = createBrowserRouter([
         {
@@ -13,7 +15,9 @@ const MainRouter = createBrowserRouter([
         AdminRouter,
         QNARouter,
         ProductRouter,
-        userRouter
+        userRouter,
+        CommunityProductRouter,
+        CommunityAllergyRouter
 
     ]
     )
