@@ -15,7 +15,7 @@ const init = {
     current: 0
 };
 
-const formatDate = (dateString) => {
+export const formatDate = (dateString) => {
     const date = new Date(dateString);
     date.setHours(date.getHours() + 9);
     return date.toLocaleString('ko-KR', {
@@ -26,6 +26,13 @@ const formatDate = (dateString) => {
         minute: '2-digit',
         hour12: false,
     });
+};
+
+const getFormattedArray = (value) => {
+    if (Array.isArray(value)) {
+        return value.join(", ");
+    }
+    return value;
 };
 
 function CommonTableComponent({ name, tableHeader, column, listFn}) {
@@ -76,7 +83,11 @@ function CommonTableComponent({ name, tableHeader, column, listFn}) {
                         onClick={() => linkClick(item[column[0]])}>
                         {column.slice(1).map((temp) => (
                             <td key={temp} className="px-5 py-4 text-sm text-gray-600 text-center">
-                                {temp.endsWith('date') ? formatDate(item[temp]) : item[temp]}
+                                {temp.endsWith('date') ? formatDate(item[temp])
+                                    : temp.endsWith("birth") ? formatDate(item[temp])
+                                        : temp.endsWith('List') ? getFormattedArray(item[temp])
+                                            : item[temp]}
+
                             </td>
                         ))}
                     </tr>
