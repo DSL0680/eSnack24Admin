@@ -18,12 +18,12 @@ const init = {
 export const formatDate = (dateString) => {
     const date = new Date(dateString);
     date.setHours(date.getHours() + 9);
-    return date.toLocaleString('ko-KR', {
-        year: 'numeric',
-        month: '2-digit',
-        day: '2-digit',
-        hour: '2-digit',
-        minute: '2-digit',
+    return date.toLocaleString("ko-KR", {
+        year: "numeric",
+        month: "2-digit",
+        day: "2-digit",
+        hour: "2-digit",
+        minute: "2-digit",
         hour12: false,
     });
 };
@@ -37,63 +37,80 @@ const getFormattedArray = (value) => {
 
 function CommonTableComponent({ name, tableHeader, column, listFn}) {
     const [data, setData] = useState(init);
+    const [loading, setLoading] = useState(false);
     const [searchParams, setSearchParams] = useSearchParams();
     const [page, setPage] = useState(1);
-    const [refresh, setRefresh] = useState(false);
     const navigate = useNavigate();
     const location = useLocation();
-
-    const pageQuery = searchParams.get("page") || "";
 
     const changePage = (pageNum) => {
         setPage(pageNum);
         setSearchParams({ page: pageNum });
-        setRefresh(!refresh);
     };
 
     const linkClick = (num) => {
         navigate({
             pathname: `/${name}/detail/${num}`,
-            search: location.search, // 현재 쿼리 스트링을 그대로 유지
-        })
+            search: location.search,
+        });
     };
 
     useEffect(() => {
+        const pageQuery = searchParams.get("page") || 1;
+        setLoading(true);
         listFn(pageQuery).then((res) => {
             setData(res);
-            console.log(res);
+            setLoading(false);
         });
-    }, [page, searchParams, refresh, listFn]);
+    }, [searchParams, listFn]);
 
     return (
         <div className="overflow-x-auto p-4">
-            <table className="min-w-full leading-normal border border-gray-300 rounded-lg shadow-lg">
+            <table className="table-fixed w-full leading-normal border border-gray-300 rounded-lg shadow-lg">
                 <thead className="bg-gradient-to-r from-green-400 to-green-500 text-white">
                 <tr className="text-sm font-semibold text-left uppercase tracking-wide">
-                    {tableHeader.map((item) => (
-                        <th key={item} className="px-5 py-3 text-center">{item}</th>
+                    {tableHeader.map((item, index) => (
+                        <th
+                            key={item}
+                            className="px-5 py-3 text-center"
+                            style={{ width: `${100 / tableHeader.length}%` }} // 동적으로 열 너비 설정
+                        >
+                            {item}
+                        </th>
                     ))}
                 </tr>
                 </thead>
-
                 <tbody className="bg-white">
-                {data.dtoList.map((item) => (
-                    <tr key={item[column[0]]}
-                        className="hover:bg-gray-100 border-b border-gray-200"
-                        onClick={() => linkClick(item[column[0]])}>
-                        {column.slice(1).map((temp) => (
-                            <td key={temp} className="px-5 py-4 text-sm text-gray-600 text-center">
-                                {temp.endsWith('date') ? formatDate(item[temp])
-                                    : temp.endsWith("birth") ? formatDate(item[temp])
-                                        : temp.endsWith('List') ? getFormattedArray(item[temp])
-                                            : item[temp]}
-
-                            </td>
-                        ))}
+                {loading ? (
+                    <tr>
+                        <td
+                            colSpan={tableHeader.length}
+                            className="text-center py-4 text-gray-500"
+                        >
+                            Loading...
+                        </td>
                     </tr>
-                ))}
+                ) : (
+                    data.dtoList.map((item) => (
+                        <tr
+                            key={item.id || item[column[0]]}
+                            className="hover:bg-gray-100 border-b border-gray-200"
+                            onClick={() => linkClick(item[column[0]])}
+                        >
+                            {column.slice(1).map((col) => (
+                                <td
+                                    key={col}
+                                    className="px-5 py-4 text-sm text-gray-600 text-center truncate"
+                                >
+                                    {col.endsWith("date")
+                                        ? formatDate(item[col])
+                                        : item[col]}
+                                </td>
+                            ))}
+                        </tr>
+                    ))
+                )}
                 </tbody>
-
                 <tfoot>
                 <tr>
                     <td colSpan={column.length}>

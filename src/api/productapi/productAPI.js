@@ -9,6 +9,7 @@ export const getAllProducts = async (page) => {
 
     const res = await jwtAxios.get(`${host}/list?page=${pageValue}`);
 
+
     console.log(res.data);
 
     return res.data;

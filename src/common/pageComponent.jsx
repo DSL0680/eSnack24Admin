@@ -15,6 +15,7 @@ function PageComponent({pageResponse, changePage}) {
   const pageNums = makeArr(pageResponse.prevPage + 1, pageResponse.totalPage);
 
 
+
   const lis = pageNums.map(num => (
 
       <li
