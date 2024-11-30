@@ -1,8 +1,12 @@
-import QNAIndexPage from "../pages/qnapages/QNAIndexPage.jsx";
-import {Suspense} from "react";
-import LoadingComponent from "../common/LoadingComponent.jsx";
-import QNADetailPage from "../pages/qnapages/QNADetailPage.jsx";
-import QNAListPage from "../pages/qnapages/QNAListPage.jsx";
+import {lazy, Suspense} from "react";
+
+
+
+const QNAIndexPage = lazy(() => import("../pages/qnapages/QNAIndexPage.jsx"))
+const QNAListPage = lazy(() => import("../pages/qnapages/QNAListPage.jsx"))
+const QNADetailPage = lazy(() => import("../pages/qnapages/QNADetailPage.jsx"))
+const LoadingComponent = lazy(() => import("../common/LoadingComponent.jsx"))
+
 const Loading = <LoadingComponent/>
 
 const QNARouter = {
