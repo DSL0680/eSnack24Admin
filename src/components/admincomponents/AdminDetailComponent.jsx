@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { editAdmin, getAdminOne } from "../../api/adminapi/adminAPI.js";
+import {deleteAdmin, editAdmin, getAdminOne} from "../../api/adminapi/adminAPI.js";
 import { useParams, useNavigate, useSearchParams } from "react-router-dom";
 import CommonModal from "../../common/CommonModal.jsx";
 
@@ -17,6 +17,9 @@ function AdminDetailComponent() {
     const [formData, setFormData] = useState(init);
     const [updateData, setUpdateData] = useState({});
     const [modalOpen, setModalOpen] = useState(false);
+    const [msg, setMsg] = useState("");
+    const [modalFn, setModalFn] = useState(null);
+    const [closeFn, setCloseFn] = useState(null);
 
     const { admno } = useParams();
     const [searchParams] = useSearchParams();
@@ -48,23 +51,36 @@ function AdminDetailComponent() {
     };
 
     const handleUpdateClick = (e) => {
+
         e.preventDefault();
+        setMsg("수정")
+        setModalFn(() => () => editAdmin(admno, updateData));
+        setCloseFn(() => () => setModalOpen(false))
         setModalOpen(true);
     };
 
     const handleBackClick = () => {
+
         if (page) navigate(`/admin/list?page=${page}`);
         else navigate('/admin/list');
     };
 
-    const updateFn = () => {
-        editAdmin(admno, updateData).then((res) => {
+    const handleDeleteClick = () => {
 
-            console.log(res);
-        });
-    };
+        setMsg("삭제")
+        setModalFn(() => () => deleteAdmin(admno))
+        setCloseFn(() => () => {
+
+            setModalOpen(false)
+
+            if (page) navigate(`/admin/list?page=${page}`);
+            else navigate('/admin/list');
+        })
+        setModalOpen(true);
+    }
 
     useEffect(() => {
+
         getAdminOne(admno).then((res) => {
             setFormData(res);
         });
@@ -75,14 +91,25 @@ function AdminDetailComponent() {
             {modalOpen && (
                 <CommonModal
                     isOpen={modalOpen}
-                    msg={"수정"}
-                    fn={updateFn}
-                    closeModal={() => setModalOpen(false)}
+                    msg={msg}
+                    fn={modalFn}
+                    closeModal={closeFn}
+                    cancelFn={() => setModalOpen(false)}
                 />
             )}
 
             <div className="max-w-lg mx-auto mt-8 p-6 bg-white border border-gray-200 rounded-lg shadow-lg">
-                <h2 className="text-3xl font-semibold text-center text-gray-800 mb-6">관리자 정보 수정</h2>
+                {/* Header with Title and Delete Button */}
+                <div className="flex justify-between items-center mb-6">
+                    <h2 className="text-3xl font-semibold text-gray-800">관리자 정보 수정</h2>
+                    <button
+                        type="button"
+                        className="px-4 py-2 text-sm font-medium text-white bg-red-600 rounded-md hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500"
+                        onClick={handleDeleteClick}
+                    >
+                        삭제
+                    </button>
+                </div>
 
                 {/* ID */}
                 <div>
