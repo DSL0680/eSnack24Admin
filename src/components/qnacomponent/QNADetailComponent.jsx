@@ -1,70 +1,98 @@
 import React, { useEffect, useState } from "react";
-import {answerQNA, getQNAOne} from "../../api/csapi/qnaAPI.js";
-import { useParams } from "react-router-dom";
+import {answerQNA, getQNAOne, removeQNA} from "../../api/csapi/qnaAPI.js";
+import {useNavigate, useParams} from "react-router-dom";
 import CommonModal from "../../common/CommonModal.jsx";
 import {useSelector} from "react-redux";
 
 const init = {
-    qno: 0,
-    admname: '', // 담당자 이름
-    ptitle_ko: '', // 상품명
-    qanswer: '', // 답변
-    qcontent: '', // 질문내용
-    qregdate: null, // 생성날짜
-    qmoddate: null, // 수정날짜
-    qstatus: false, // 답변상태
-    qtitle: '',    // 질문제목
-    uemail: '', // 유저이메일
+    qno:0,
+    qanswer: ""
 };
 
 function QnaDetailComponent() {
     const { qno } = useParams();
     const [formData, setFormData] = useState(init);
-    const [modalOpen, setModalOpen] = useState(false);
+    const [updateData, setUpdateData] = useState({});
+    const [editmodalOpen, setEditModalOpen] = useState(false);
+    const [removemodalOpen, setRemoveModalOpen] = useState(false);
+
+    const navigate = useNavigate();
+
 
     const auth = useSelector(state => state.auth);
+    const admno = auth.admno
 
     const handleChange = (e) => {
-        const {value} = e.target.value;
+        const { value } = e.target;  // value는 입력된 답변 내용
+
+        // formData에서 qanswer를 업데이트
         setFormData({
             ...formData,
             qanswer: value
+        });
+
+        // updateData에서 qanswer만 업데이트
+        setUpdateData({
+            ...updateData,
+            qno: formData.qno,
+            qanswer: value  // answer만 업데이트
+        });
+    }
+
+    const answerFn = () => {
+
+        answerQNA(admno,updateData).then((result) => {
+            console.log("--------")
+            console.log(result);
+        });
+    };
+
+    const removeFn = () => {
+
+        removeQNA(formData.qno).then((result) => {
+            console.log(result);
         })
     }
 
-    const handleSubmit = () => {
+    const handleEditClick = (e) => {
+        e.preventDefault();
+        setEditModalOpen(true);
+    };
 
-        console.log(auth.qno);
-
-        // answerQNA.then((result) => {
-        //     console.log(result);
-        //     setModalOpen(true);
-        // });
-
+    const handleRemoveClick = (e) => {
+        e.preventDefault();
+        setRemoveModalOpen(true);
     };
 
     useEffect(() => {
         getQNAOne(qno).then((res) => {
-            setFormData(res);
+            setFormData(res || init.qno);
         });
     }, [qno]);
 
-
-
-
-
-    if (!formData) {
-        return <div className="text-center text-gray-600">Loading...</div>;
-    }
-
     return (
         <>
-            {modalOpen && (
+            {editmodalOpen && (
                 <CommonModal
-                    isOpen={modalOpen}
+                    isOpen={editmodalOpen}
                     msg={"등록"}
-                    fn={updateFn}
-                    closeModal={() => setModalOpen(false)}
+                    fn={answerFn}
+                    closeModal={() => {
+                        setEditModalOpen(false)
+                        navigate('/qna/list');
+                    }}
+                />
+            )}
+
+            {removemodalOpen && (
+                <CommonModal
+                    isOpen={removemodalOpen}
+                    msg={"삭제"}
+                    fn={removeFn}
+                    closeModal={() => {
+                        setRemoveModalOpen(false)
+                        navigate('/qna/list');
+                    }}
                 />
             )}
 
@@ -135,7 +163,7 @@ function QnaDetailComponent() {
                     <div>
                         <label className="block text-gray-500 font-medium mb-1">답변 내용</label>
                         <textarea
-                            value={formData.qanswer}
+                            value = {formData.qanswer || ""} // null이나 undefined일 때 빈 문자열 설정
                             onChange={handleChange}
                             className="w-full px-4 py-2 border border-gray-300 bg-white rounded-lg shadow-sm text-gray-800 h-32 resize-none"
                         ></textarea>
@@ -156,13 +184,13 @@ function QnaDetailComponent() {
             <div className="flex justify-end space-x-4">
                 <button
                     className="px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-lg shadow-md transition duration-200 ease-in-out"
-                    onClick={handleSubmit}
+                    onClick={handleEditClick}
                 >
                     수정하기
                 </button>
                 <button
                     className="px-6 py-3 bg-red-500 hover:bg-red-600 text-white font-semibold rounded-lg shadow-md transition duration-200 ease-in-out"
-                    onClick={() => console.log("삭제")}
+                    onClick={handleRemoveClick}
                 >
                     삭제하기
                 </button>

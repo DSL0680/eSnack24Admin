@@ -23,9 +23,19 @@ export const getQNAOne = async (qno) => {
     return res.data;
 }
 
-export const answerQNA = async (admno) => {
+export const answerQNA = async (admno, answerAdmin) => {
 
-    const res = await jwtAxios.post(`${host}/answer`, admno);
+        const res = await jwtAxios.put(`${host}/answer/${admno}`, answerAdmin);
+
+        console.log(res.data);
+
+        return res.data;
+
+}
+
+export const removeQNA = async (qno) => {
+
+    const res = await jwtAxios.put(`${host}/delete/${qno}`);
 
     console.log(res.data);
 
