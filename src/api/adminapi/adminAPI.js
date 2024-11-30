@@ -10,7 +10,7 @@ export const refreshRequest = async (accessToken, refreshToken) => {
     })
 }
 
-export const getAllAdminList = async (page) => {
+export const getElseAdminList = async (page) => {
 
     const pageValue = (Number)(page || 1)
 
@@ -21,11 +21,22 @@ export const getAllAdminList = async (page) => {
     return res.data;
 }
 
-export const getRoleAdminList = async (role, page) => {
+export const getAllAdminList = async (page) => {
 
     const pageValue = (Number)(page || 1)
 
-    const res = await jwtAxios.get(`${host}/roleList/${role}?page=${pageValue}`)
+    const res = await jwtAxios.get(`${host}/roleList/ALL?page=${pageValue}`)
+
+    console.log(res.data)
+
+    return res.data;
+}
+
+export const getCSAdminList = async (page) => {
+
+    const pageValue = (Number)(page || 1)
+
+    const res = await jwtAxios.get(`${host}/roleList/CS?page=${pageValue}`)
 
     console.log(res.data)
 
