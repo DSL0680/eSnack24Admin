@@ -90,13 +90,16 @@ function FaqRegisterComponent() {
                 {/* 카테고리 */}
                 <div className="mb-4">
                     <label htmlFor="fcategory" className="block text-sm font-medium text-gray-700">카테고리</label>
-                    <input
-                        type="text"
+                    <select
                         id="fcategory"
                         value={updateData.fcategory}
                         onChange={handleChange}
-                        className="mt-2 p-3 w-full border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
-                    />
+                        className="mt-2 p-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500">
+                        <option value="">--카테고리 선택--</option>
+                        <option value="Product">Product</option>
+                        <option value="System">System</option>
+                        <option value="Etc">Etc</option>
+                    </select>
                 </div>
 
                 {/* 내용 */}

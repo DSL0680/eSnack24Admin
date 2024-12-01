@@ -127,13 +127,16 @@ function FaqDetailComponent() {
                         <label htmlFor="fcategory" className="block text-lg font-medium text-gray-700 mb-2">
                             카테고리
                         </label>
-                        <input
+                        <select
                             id="fcategory"
-                            type="text"
-                            value={formData.fcategory || ""}
+                            value={formData.fcategory}
                             onChange={handleChange}
-                            className="w-full px-4 py-3 text-gray-900 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 bg-gray-100"
-                        />
+                            className="mt-2 p-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500">
+                            <option value="">--카테고리 선택--</option>
+                            <option value="Product">Product</option>
+                            <option value="System">System</option>
+                            <option value="Etc">Etc</option>
+                        </select>
                     </div>
                 </div>
 
