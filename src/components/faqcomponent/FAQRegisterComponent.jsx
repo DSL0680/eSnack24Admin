@@ -98,6 +98,8 @@ function FaqRegisterComponent() {
                         <option value="">--카테고리 선택--</option>
                         <option value="Product">Product</option>
                         <option value="System">System</option>
+                        <option value="Order">Order</option>
+                        <option value="Payment">Payment</option>
                         <option value="Etc">Etc</option>
                     </select>
                 </div>

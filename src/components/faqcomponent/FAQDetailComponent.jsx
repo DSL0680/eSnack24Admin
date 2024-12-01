@@ -135,6 +135,8 @@ function FaqDetailComponent() {
                             <option value="">--카테고리 선택--</option>
                             <option value="Product">Product</option>
                             <option value="System">System</option>
+                            <option value="Order">Order</option>
+                            <option value="Payment">Payment</option>
                             <option value="Etc">Etc</option>
                         </select>
                     </div>
@@ -142,7 +144,7 @@ function FaqDetailComponent() {
 
                 {/* 내용 */}
                 <div>
-                    <label htmlFor="fcontent" className="block text-lg font-medium text-gray-700 mb-2">
+                <label htmlFor="fcontent" className="block text-lg font-medium text-gray-700 mb-2">
                         내용
                     </label>
                     <textarea
