@@ -41,3 +41,13 @@ export const getFAQRemove = async (fno) => {
 
     return res.data;
 }
+
+export const addFAQ = async (addData) => {
+
+    const res = await jwtAxios.post(`${host}/add`, addData)
+
+    console.log(res.data);
+
+    return res.data;
+
+}
