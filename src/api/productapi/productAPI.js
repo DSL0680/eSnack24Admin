@@ -20,6 +20,11 @@ export const getProductAllergyList = async (page) => {
     const pageValue = (Number)(page || 1)
 
     const res = await jwtAxios.get(`${host}/allergy-list?page=${pageValue}`);
+    // 알레르기정보값 없는 경우 해당 내용 표기
+    res.data.dtoList = res.data.dtoList.map(item => ({
+        ...item,
+        allergyInfo: item.allergyInfo || "알레르기 유발 성분 없음"
+    }));
 
     console.log(res.data);
 
@@ -62,16 +67,28 @@ export const deleteProduct = async (pno) => {
     return res.data;
 }
 
-// 제품정보 위주 검색
+// 제품명 기반 검색
 export const searchProducts = async (searchParams) => {
-    const res = await jwtAxios.get(`${host}/search`, { params: searchParams });
+    const res = await jwtAxios.get(`${host}/search`, {
+        params: {
+            ptitle_ko: searchParams.keyword || '',
+            pcategory_ko: searchParams.category || '',
+            page: searchParams.page || 1,
+            size: searchParams.size || 10
+        }
+    });
     return res.data;
 }
 
-// 알러지정보 위주 검색
-export const searchProductsByAllergy = async (allergyIds) => {
+// 알레르기 기반 검색
+export const searchProductsByAllergy = async (allergyParams) => {
     const res = await jwtAxios.get(`${host}/allergy-search`, {
-        params: { allergySelectList: allergyIds }
+        params: {
+            ptitle_ko: allergyParams.keyword || '',
+            allergySelectList: allergyParams.allergyIds || [],
+            page: allergyParams.page || 1,
+            size: allergyParams.size || 10
+        }
     });
     return res.data;
 }
