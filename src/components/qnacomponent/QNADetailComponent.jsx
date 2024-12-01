@@ -12,7 +12,6 @@ const init = {
 function QnaDetailComponent() {
     const { qno } = useParams();
     const [formData, setFormData] = useState(init);
-    const [updateData, setUpdateData] = useState({});
     const [editmodalOpen, setEditModalOpen] = useState(false);
     const [removemodalOpen, setRemoveModalOpen] = useState(false);
 
@@ -22,26 +21,20 @@ function QnaDetailComponent() {
     const auth = useSelector(state => state.auth);
     const admno = auth.admno
 
+
     const handleChange = (e) => {
-        const { value } = e.target;  // value는 입력된 답변 내용
+        const { id, value } = e.target;
 
-        // formData에서 qanswer를 업데이트
-        setFormData({
-            ...formData,
-            qanswer: value
-        });
-
-        // updateData에서 qanswer만 업데이트
-        setUpdateData({
-            ...updateData,
-            qno: formData.qno,
-            qanswer: value  // answer만 업데이트
-        });
+        setFormData((prev) => ({
+            ...prev,
+            [id]: value
+        }))
     }
+
 
     const answerFn = () => {
 
-        answerQNA(admno,updateData).then((result) => {
+        answerQNA(admno,formData).then((result) => {
             console.log("--------")
             console.log(result);
         });
@@ -115,6 +108,7 @@ function QnaDetailComponent() {
                     <div>
                         <label className="block text-gray-500 font-medium mb-1">담당자 이름</label>
                         <input
+                            id="adname"
                             type="text"
                             value={formData.admname}
                             readOnly
@@ -124,6 +118,7 @@ function QnaDetailComponent() {
                     <div>
                         <label className="block text-gray-500 font-medium mb-1">질문 제목</label>
                         <input
+                            id="qtitle"
                             type="text"
                             value={formData.qtitle}
                             readOnly
@@ -133,6 +128,7 @@ function QnaDetailComponent() {
                     <div>
                         <label className="block text-gray-500 font-medium mb-1">작성자 이메일</label>
                         <input
+                            id="uemail"
                             type="text"
                             value={formData.uemail || "N/A"}
                             readOnly
@@ -142,6 +138,7 @@ function QnaDetailComponent() {
                     <div>
                         <label className="block text-gray-500 font-medium mb-1">등록일</label>
                         <input
+                            id="qregdate"
                             type="text"
                             value={formData.qregdate ? new Date(formData.qregdate).toLocaleDateString() : "N/A"}
                             readOnly
@@ -155,6 +152,7 @@ function QnaDetailComponent() {
                     <div>
                         <label className="block text-gray-500 font-medium mb-1">질문 내용</label>
                         <textarea
+                            id="qcontent"
                             value={formData.qcontent}
                             readOnly
                             className="w-full px-4 py-2 border border-gray-300 bg-white rounded-lg shadow-sm text-gray-800 h-32 resize-none"
@@ -163,6 +161,7 @@ function QnaDetailComponent() {
                     <div>
                         <label className="block text-gray-500 font-medium mb-1">답변 내용</label>
                         <textarea
+                            id="qanswer"
                             value = {formData.qanswer || ""} // null이나 undefined일 때 빈 문자열 설정
                             onChange={handleChange}
                             className="w-full px-4 py-2 border border-gray-300 bg-white rounded-lg shadow-sm text-gray-800 h-32 resize-none"
@@ -171,6 +170,7 @@ function QnaDetailComponent() {
                     <div>
                         <label className="block text-gray-500 font-medium mb-1">수정일</label>
                         <input
+                            id="qmoddate"
                             type="text"
                             value={formData.qmoddate ? new Date(formData.qmoddate).toLocaleDateString() : "N/A"}
                             readOnly
