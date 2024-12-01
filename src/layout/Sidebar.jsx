@@ -22,7 +22,7 @@ function Sidebar() {
     const menuItems = [
         {
             name: "Dashboard",
-            path: "/",
+            path: "/graph",
             icon: "M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"
         },
         {
@@ -113,9 +113,9 @@ function Sidebar() {
                 <aside
                     className={`z-20 ${sidebarOpen ? 'block' : 'hidden'} w-64 h-screen overflow-y-auto bg-white md:block flex-shrink-0`}>
                     <div className="py-4 text-gray-500">
-                        <Link className="ml-6 text-lg font-bold text-gray-800 flex items-center" to="/">
-                            <img src="/logo.png" alt="Logo" className="mr-2 h-8"/>
-                            CareBridge
+                        <Link className="ml-6 text-lg font-bold text-gray-800 flex items-center" to="/graph">
+                            <img src="/eSnack24_logo_full.png" alt="Logo Image" className="mr-2 h-8"/>
+                            eSnack24
                         </Link>
                         <ul className="mt-6">
                             {menuItems.map((item, index) => (
