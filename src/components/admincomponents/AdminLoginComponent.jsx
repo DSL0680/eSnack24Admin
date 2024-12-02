@@ -19,7 +19,7 @@ const AdminLoginComponent = () => {
                     admno: res.admno,
                 })
             );
-            navigate('/admin/list');
+            navigate('/graph');
         });
     };
 
