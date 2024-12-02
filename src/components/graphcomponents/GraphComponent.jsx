@@ -6,7 +6,7 @@ import { getUserAllergyCount, getUserAgeCount, getUserCountryCount } from '../..
 
 Chart.register(ArcElement, BarElement, CategoryScale, LinearScale, Tooltip, Legend);
 
-// 동적으로 색상을 생성하는 함수
+// 동적으로 색상을 생성
 const generateColors = (count) => {
     const colors = [];
     for (let i = 0; i < count; i++) {

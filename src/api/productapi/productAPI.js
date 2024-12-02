@@ -72,7 +72,7 @@ export const searchProducts = async (searchParams) => {
     const res = await jwtAxios.get(`${host}/search`, {
         params: {
             ptitle_ko: searchParams.keyword || '',
-            pcategory_ko: searchParams.pcategory_ko || '',  // category -> pcategory_ko로 변경
+            pcategory_ko: searchParams.pcategory_ko || '',
             page: searchParams.page || 1,
             size: searchParams.size || 10
         }

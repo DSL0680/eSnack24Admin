@@ -1,9 +1,20 @@
+import CommonTableComponent from "../../common/CommonTableComponent.jsx";
+import React from "react";
+import {getFAQList} from "../../api/csapi/faqAPI.js";
+import {FAQListTableColumn, FAQListTableHeader} from "../../pages/faqpages/FAQListPage.jsx";
 
 function FAQListComponent() {
     return (
-        <div>
-            <div>FAQ Component page</div>
-        </div>
+
+            <>
+                <CommonTableComponent
+                    name={"faq"}
+                    listFn={getFAQList}
+                    tableHeader={FAQListTableHeader}
+                    column={FAQListTableColumn}>
+                </CommonTableComponent>
+            </>
+
     );
 }
 
