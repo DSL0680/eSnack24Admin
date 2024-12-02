@@ -4,10 +4,11 @@ import {lazy, Suspense} from "react";
 const Loading = <LoadingComponent/>
 
 const AdminIndexPage = lazy(() => import("../pages/adminpages/AdminIndexPage"))
-const AdminListPage = lazy(() => import("../pages/adminpages/AdminListPage.jsx"))
+const AdminListPage = lazy(() => import("../pages/adminpages/AdminListPage"))
 const AdminLoginPage = lazy(() => import("../pages/adminpages/AdminLoginPage"))
 const AdminDetailPage = lazy(() => import("../pages/adminpages/AdminDetailPage"))
-const AdminRegisterPage = lazy(() => import("../pages/adminpages/AdminRegisterPage.jsx"))
+const AdminRegisterPage = lazy(() => import("../pages/adminpages/AdminRegisterPage"))
+const AdminWorkListPage = lazy(() => import("../pages/adminpages/AdminWorkListPage"))
 
 const AdminRouter = {
 
@@ -17,7 +18,8 @@ const AdminRouter = {
         {path: 'list', element: <Suspense fallback={Loading}><AdminListPage/></Suspense> },
         {path: 'login', element: <Suspense fallback={Loading}><AdminLoginPage/></Suspense> },
         {path: 'detail/:admno', element: <Suspense fallback={Loading}><AdminDetailPage/></Suspense> },
-        {path: 'reg', element: <Suspense fallback={Loading}><AdminRegisterPage/></Suspense> }
+        {path: 'reg', element: <Suspense fallback={Loading}><AdminRegisterPage/></Suspense> },
+        {path: 'worklist', element: <Suspense fallback={Loading}><AdminWorkListPage/></Suspense> },
     ]
 
 }
