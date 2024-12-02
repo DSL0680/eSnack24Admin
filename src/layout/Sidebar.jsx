@@ -86,7 +86,6 @@ function Sidebar() {
 
     const logoutFn = () => {
 
-        cookies.remove("auth");
         dispatch(clearAuth());
     }
 
