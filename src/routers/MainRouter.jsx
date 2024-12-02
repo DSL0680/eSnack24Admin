@@ -7,6 +7,7 @@ import QNARouter from "./QNARouter.jsx";
 import CommunityProductRouter from "./CommunityProductRouter.jsx";
 import CommunityAllergyRouter from "./CommunityAllergyRouter.jsx";
 import FAQRouter from "./FAQRouter.jsx";
+import GraphRouter from "./GraphRouter.jsx";
 
 const MainRouter = createBrowserRouter([
         {
@@ -19,7 +20,8 @@ const MainRouter = createBrowserRouter([
         ProductRouter,
         userRouter,
         CommunityProductRouter,
-        CommunityAllergyRouter
+        CommunityAllergyRouter,
+        GraphRouter
 
     ]
     )

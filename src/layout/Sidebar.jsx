@@ -22,28 +22,50 @@ function Sidebar() {
     const menuItems = [
         {
             name: "Dashboard",
-            path: "/",
+            path: "/graph",
             icon: "M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"
         },
         {
-            name: "간병인",
-            path: "/caregiver",
+            name: "제품 관리",
+            path: "/product",
+            icon: "M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10m0-10L4 17m16 0l-8 4", // SVG 경로
+            hasDropdown: true,
+            subItems: [
+                { name: "리스트", path: "/product/list" },
+                { name: "알러지 기준 리스트", path: "/product/allergy-list" },
+                { name: "제품명 검색", path: "/product/search" },
+                { name: "알러지 기준 검색", path: "/product/allergy-search" },
+                { name: "제품 등록", path: "/product/register" }
+            ]
+        },
+        {
+            name: "사용자",
+            path: "/user",
             icon: "M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01",
             hasDropdown: true,
             subItems: [
-                { name: "리스트", path: "/caregiver/list" },
-                { name: "승인 대기 리스트", path: "/caregiver/notApprovedGivers" },
-                { name: "불만 접수", path: "/caregiver/complaint" }
+                { name: "리스트", path: "/user/list" },
             ]
         },
         {
             name: "관리자",
-            path: "/careTaker",
+            path: "/admin",
             icon: "M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10",
             hasDropdown: true,
             subItems: [
                 { name: "리스트", path: "/admin/list" },
+                { name: "QNA 답변 현황 리스트", path: "/admin/worklist" },
                 { name: "등록", path: "/admin/reg" }
+            ]
+        },
+        {
+            name: "커뮤니티(신고)",
+            path: "/request",
+            icon: "M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01",
+            hasDropdown: true,
+            subItems: [
+                { name: "상품 신고 리스트", path: "/request/product/list" },
+                { name: "알러지 신고 리스트", path: "/request/allergy/list" },
             ]
         },
         {
@@ -114,9 +136,9 @@ function Sidebar() {
                 <aside
                     className={`z-20 ${sidebarOpen ? 'block' : 'hidden'} w-64 h-screen overflow-y-auto bg-white md:block flex-shrink-0`}>
                     <div className="py-4 text-gray-500">
-                        <Link className="ml-6 text-lg font-bold text-gray-800 flex items-center" to="/">
-                            <img src="/logo.png" alt="Logo" className="mr-2 h-8"/>
-                            CareBridge
+                        <Link className="ml-6 text-lg font-bold text-gray-800 flex items-center" to="/graph">
+                            <img src="/eSnack24_logo_full.png" alt="Logo Image" className="mr-2 h-8"/>
+                            eSnack24
                         </Link>
                         <ul className="mt-6">
                             {menuItems.map((item, index) => (
@@ -181,7 +203,7 @@ function Sidebar() {
                         </ul>
 
                         {/* 로그아웃 버튼 */}
-                        <div className="absolute bottom-4 left-6 w-full px-6">
+                        <div className="absolute bottom-4 left-6 px-6">
                             <button
                                 onClick={handleLogout}
                                 className="flex items-center justify-center text-sm font-semibold text-red-600 hover:text-red-800 py-2 px-4 rounded-md mt-2 bg-white border border-transparent hover:border-red-600 transition-colors duration-150"

@@ -43,6 +43,28 @@ export const getCSAdminList = async (page) => {
     return res.data;
 }
 
+export const getAdminWorkListAsc = async (page) => {
+
+    const pageValue = (Number)(page || 1)
+
+    const res = await jwtAxios.get(`${host}/workList/ASC?page=${pageValue}`)
+
+    console.log(res.data)
+
+    return res.data;
+}
+
+export const getAdminWorkListDesc = async (page) => {
+
+    const pageValue = (Number)(page || 1)
+
+    const res = await jwtAxios.get(`${host}/workList/DESC?page=${pageValue}`)
+
+    console.log(res.data)
+
+    return res.data;
+}
+
 export const editAdmin = async (admno, updatedAdmin) => {
 
     const res = await jwtAxios.put(`${host}/edit/${admno}`, updatedAdmin);
