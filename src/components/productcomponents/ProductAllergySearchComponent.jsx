@@ -15,36 +15,44 @@ const ALLERGY_TYPES = [
 
 function ProductAllergySearchComponent() {
     const [keyword, setKeyword] = useState('');
-    const [selectedCategory, setSelectedCategory] = useState('');
     const [selectedAllergies, setSelectedAllergies] = useState([]);
     const [searchResult, setSearchResult] = useState(null);
+    const [loading, setLoading] = useState(false);
 
     const handleSearch = async () => {
         try {
-            const result = await searchProductsByAllergy({
-                keyword: keyword,
-                pcategory_ko: selectedCategory === '전체' ? '' : selectedCategory,
+            console.log('Search params:', {
                 allergySelectList: selectedAllergies,
                 page: 1,
                 size: 10
             });
+
+            const result = await searchProductsByAllergy({
+                allergySelectList: selectedAllergies,
+                page: 1,
+                size: 10
+            });
+
+            console.log('Search result:', result);
             setSearchResult(result);
         } catch (error) {
-            console.error('검색 중 오류 발생', error);
+            console.error('검색 요청 실패:', error.response || error);
+            console.error('요청 설정:', error.config);
         }
     };
 
     const handleAllergyToggle = (allergyId) => {
+        console.log('이전 선택된 알레르기:', selectedAllergies);
+        console.log('토글할 알레르기 ID:', allergyId);
+
         setSelectedAllergies(prev => {
             const newAllergies = prev.includes(allergyId)
                 ? prev.filter(id => id !== allergyId)
                 : [...prev, allergyId];
+
+            console.log('새로운 선택된 알레르기:', newAllergies);
             return newAllergies;
         });
-    };
-
-    const handleCategorySelect = (category) => {
-        setSelectedCategory(category);
     };
 
     const searchResultListFn = () => {
@@ -90,18 +98,22 @@ function ProductAllergySearchComponent() {
             </div>
 
             {/* 검색 결과 */}
-            {searchResult && (
-                <div>
-                    <p className="mb-4 text-gray-600">
-                        총 {searchResult.totalCount}개의 제품이 검색되었습니다.
-                    </p>
-                    <CommonTableComponent
-                        name="product"
-                        listFn={searchResultListFn}
-                        tableHeader={ProductAllergySearchTableHeader}
-                        column={ProductAllergySearchTableColumn}
-                    />
-                </div>
+            {loading ? (
+                <div className="text-center text-gray-600">검색 중...</div>
+            ) : (
+                searchResult && (
+                    <div>
+                        <p className="mb-4 text-gray-600">
+                            총 {searchResult.totalCount}개의 제품이 검색되었습니다.
+                        </p>
+                        <CommonTableComponent
+                            name="product"
+                            listFn={searchResultListFn}
+                            tableHeader={ProductAllergySearchTableHeader}
+                            column={ProductAllergySearchTableColumn}
+                        />
+                    </div>
+                )
             )}
         </div>
     );

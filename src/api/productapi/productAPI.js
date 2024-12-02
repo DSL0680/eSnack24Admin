@@ -72,7 +72,7 @@ export const searchProducts = async (searchParams) => {
     const res = await jwtAxios.get(`${host}/search`, {
         params: {
             ptitle_ko: searchParams.keyword || '',
-            pcategory_ko: searchParams.category || '',
+            pcategory_ko: searchParams.pcategory_ko || '',  // category -> pcategory_ko로 변경
             page: searchParams.page || 1,
             size: searchParams.size || 10
         }
@@ -81,14 +81,16 @@ export const searchProducts = async (searchParams) => {
 }
 
 // 알레르기 기반 검색
-export const searchProductsByAllergy = async (allergyParams) => {
-    const res = await jwtAxios.get(`${host}/allergy-search`, {
-        params: {
-            ptitle_ko: allergyParams.keyword || '',
-            allergySelectList: allergyParams.allergyIds || [],
-            page: allergyParams.page || 1,
-            size: allergyParams.size || 10
-        }
+export const searchProductsByAllergy = async (searchParams) => {
+    const params = new URLSearchParams();
+    params.append('page', searchParams.page || 1);
+    params.append('size', searchParams.size || 10);
+
+    // 배열을 개별 파라미터로 추가
+    searchParams.allergySelectList.forEach(id => {
+        params.append('allergySelectList', id);
     });
+
+    const res = await jwtAxios.get(`${host}/search-allergy?${params.toString()}`);
     return res.data;
 }
