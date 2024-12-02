@@ -3,6 +3,7 @@ import { getFQNAList, getTQNAList } from "../../api/csapi/qnaAPI.js";
 import CommonTableComponent from "../../common/CommonTableComponent.jsx";
 import { QNAListTableColumn, QNAListTableHeader } from "../../pages/qnapages/QNAListPage.jsx";
 import { useSearchParams } from "react-router-dom";
+import FireBase from "../../FireBase.jsx";
 
 const roles = ["답변대기", "답변완료"];
 
@@ -24,6 +25,7 @@ function QNAListComponent() {
 
     return (
         <div>
+
             <div className="flex justify-center items-center mb-4 space-x-2">
                 {roles.map((filter) => (
                     <button

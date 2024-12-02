@@ -1,9 +1,12 @@
 import Sidebar from "/src/layout/Sidebar.jsx";
 import Header from "/src/layout/Header.jsx";
+import FireBase from "../FireBase.jsx";
+import React from "react";
 
 function BasicLayout({ children }) {
     return (
         <div className="flex h-screen bg-green-50">
+            <FireBase/>
             <Sidebar /> {/* Sidebar on the left */}
 
             <div className="flex flex-col flex-1"> {/* Header and content will be in this flex column */}

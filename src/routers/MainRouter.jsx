@@ -21,7 +21,8 @@ const MainRouter = createBrowserRouter([
         userRouter,
         CommunityProductRouter,
         CommunityAllergyRouter,
-        GraphRouter
+        GraphRouter,
+
 
     ]
     )
