@@ -54,6 +54,7 @@ function Sidebar() {
             hasDropdown: true,
             subItems: [
                 { name: "리스트", path: "/admin/list" },
+                { name: "QNA 답변 현황 리스트", path: "/admin/worklist" },
                 { name: "등록", path: "/admin/reg" }
             ]
         },
