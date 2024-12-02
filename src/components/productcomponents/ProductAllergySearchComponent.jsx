@@ -23,8 +23,8 @@ function ProductAllergySearchComponent() {
         try {
             setLoading(true);
             const result = await searchProductsByAllergy({
-                keyword: keyword,
-                allergySelectList: selectedAllergies.includes('none') ? [] : selectedAllergies,
+                ptitle_ko: keyword,  // 제품명 검색어
+                allergySelectList: selectedAllergies,  // 선택된 알레르기 목록
                 page: 1,
                 size: 10
             });
@@ -34,7 +34,7 @@ function ProductAllergySearchComponent() {
         } finally {
             setLoading(false);
         }
-    };
+    };;
 
     const handleAllergyToggle = (allergyId) => {
         if (allergyId === 'none') {
