@@ -80,6 +80,7 @@ export const searchProducts = async (searchParams) => {
     return res.data;
 }
 
+// 알레르기 기반 검색
 export const searchProductsByAllergy = async (searchParams) => {
     const params = new URLSearchParams();
     params.append('page', searchParams.page || 1);
