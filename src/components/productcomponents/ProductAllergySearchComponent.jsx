@@ -21,37 +21,34 @@ function ProductAllergySearchComponent() {
 
     const handleSearch = async () => {
         try {
-            console.log('Search params:', {
-                allergySelectList: selectedAllergies,
-                page: 1,
-                size: 10
-            });
-
+            setLoading(true);
             const result = await searchProductsByAllergy({
-                allergySelectList: selectedAllergies,
+                keyword: keyword,
+                allergySelectList: selectedAllergies.includes('none') ? [] : selectedAllergies,
                 page: 1,
                 size: 10
             });
-
-            console.log('Search result:', result);
             setSearchResult(result);
         } catch (error) {
             console.error('검색 요청 실패:', error.response || error);
-            console.error('요청 설정:', error.config);
+        } finally {
+            setLoading(false);
         }
     };
 
     const handleAllergyToggle = (allergyId) => {
-        console.log('이전 선택된 알레르기:', selectedAllergies);
-        console.log('토글할 알레르기 ID:', allergyId);
+        if (allergyId === 'none') {
+            setSelectedAllergies(prev => prev.includes('none') ? [] : ['none']);
+            return;
+        }
 
         setSelectedAllergies(prev => {
-            const newAllergies = prev.includes(allergyId)
+            if (prev.includes('none')) {
+                return [allergyId];
+            }
+            return prev.includes(allergyId)
                 ? prev.filter(id => id !== allergyId)
                 : [...prev, allergyId];
-
-            console.log('새로운 선택된 알레르기:', newAllergies);
-            return newAllergies;
         });
     };
 
@@ -87,13 +84,24 @@ function ProductAllergySearchComponent() {
                             key={allergy.id}
                             onClick={() => handleAllergyToggle(allergy.id)}
                             className={`px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200 
-                                ${selectedAllergies.includes(allergy.id)
+                    ${selectedAllergies.includes(allergy.id)
                                 ? 'bg-green-500 text-white'
-                                : 'bg-gray-100 text-gray-700 hover:bg-gray-200'}`}
+                                : 'bg-gray-100 text-gray-700 hover:bg-gray-200'}
+                    ${selectedAllergies.includes('none') ? 'opacity-50 cursor-not-allowed' : ''}`}
+                            disabled={selectedAllergies.includes('none')}
                         >
                             {allergy.name}
                         </button>
                     ))}
+                    <button
+                        onClick={() => handleAllergyToggle('none')}
+                        className={`px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200 col-span-2
+                ${selectedAllergies.includes('none')
+                            ? 'bg-green-500 text-white'
+                            : 'bg-gray-100 text-gray-700 hover:bg-gray-200'}`}
+                    >
+                        알레르기 유발성분 없음
+                    </button>
                 </div>
             </div>
 
