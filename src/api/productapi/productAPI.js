@@ -42,12 +42,13 @@ export const getProductDetail = async (pno) => {
 
 // 제품 추가
 export const registerProduct = async (product) => {
-    const res = await jwtAxios.post(`${host}/add`, product);
-
-    console.log(res.data);
-
+    const res = await jwtAxios.post(`${host}/add`, product, {
+        headers: {
+            'Content-Type': 'application/json'  // multipart/form-data에서 변경
+        }
+    });
     return res.data;
-}
+};
 
 // 제품 수정
 export const updateProduct = async (pno, updatedProduct) => {
