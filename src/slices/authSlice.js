@@ -1,14 +1,25 @@
 // features/authSlice.js
 import { createSlice } from '@reduxjs/toolkit';
-import {Cookies} from "react-cookie";
-
-const initialState = {
-    accessToken: null,
-    refreshToken: null,
-    admno: 0,
-};
+import { Cookies } from 'react-cookie';
 
 const cookies = new Cookies();
+
+// 쿠키에서 초기 상태 불러오기
+let savedAuth;
+try {
+    const authCookie = cookies.get('auth', { path: '/' });
+    savedAuth = authCookie ? authCookie : null;
+} catch (e) {
+
+    console.error(e);
+    savedAuth = null;
+}
+
+const initialState = {
+    accessToken: savedAuth ? savedAuth.accessToken : null,
+    refreshToken: savedAuth ? savedAuth.refreshToken : null,
+    admno: savedAuth ? savedAuth.admno : 0,
+};
 
 const authSlice = createSlice({
     name: 'auth',
@@ -19,14 +30,19 @@ const authSlice = createSlice({
             state.refreshToken = action.payload.refreshToken;
             state.admno = action.payload.admno;
 
-            const result =
-                {admno: action.payload.admno, accessToken: action.payload.accessToken, refreshToken: action.payload.refreshToken};
+            const result = {
+                admno: action.payload.admno,
+                accessToken: action.payload.accessToken,
+                refreshToken: action.payload.refreshToken
+            };
+            cookies.set("auth", JSON.stringify(result), { path: '/' });
 
-            cookies.set("auth", JSON.stringify(result), {path: '/'});
+            console.log("==========================");
+            console.log(cookies.get("auth", {path: '/'}));
         },
-        clearAuth(state, action) {
-
-            return {...initialState}
+        clearAuth(state) {
+            cookies.remove("auth", { path: '/' });
+            return { ...initialState };
         },
     },
 });
