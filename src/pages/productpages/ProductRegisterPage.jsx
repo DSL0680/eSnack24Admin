@@ -1,8 +1,11 @@
 import React from 'react';
+import ProductRegisterComponent from "../../components/productcomponents/ProductRegisterComponent";
 
 function ProductRegisterPage() {
     return (
-        <div></div>
+        <div>
+            <ProductRegisterComponent />
+        </div>
     );
 }
 

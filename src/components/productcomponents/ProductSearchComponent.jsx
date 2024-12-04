@@ -18,20 +18,24 @@ function ProductSearchComponent() {
     const [keyword, setKeyword] = useState('');
     const [selectedCategory, setSelectedCategory] = useState('');
     const [searchResult, setSearchResult] = useState(null);
+    const [loading, setLoading] = useState(false);
 
     const handleSearch = async () => {
         if (keyword.trim() === '' && !selectedCategory) return;
+        setLoading(true);
 
         try {
             const result = await searchProducts({
                 keyword: keyword,
-                pcategory_ko: selectedCategory, // 이 부분이 중요합니다
+                pcategory_ko: selectedCategory,
                 page: 1,
                 size: 10
             });
             setSearchResult(result);
         } catch (error) {
             console.error('검색 중 오류 발생', error);
+        } finally {
+            setLoading(false);
         }
     };
 
@@ -90,18 +94,22 @@ function ProductSearchComponent() {
                 ))}
             </div>
 
-            {searchResult && (
-                <div>
-                    <p className="mb-4 text-gray-600">
-                        총 {searchResult.totalCount}개의 제품이 검색되었습니다.
-                    </p>
-                    <CommonTableComponent
-                        name="product"
-                        listFn={searchResultListFn}
-                        tableHeader={ProductSearchTableHeader}
-                        column={ProductSearchTableColumn}
-                    />
-                </div>
+            {loading ? (
+                <div className="text-center text-gray-600">검색 중...</div>
+            ) : (
+                searchResult && (
+                    <div>
+                        <p className="mb-4 text-gray-600">
+                            총 {searchResult.totalCount}개의 제품이 검색되었습니다.
+                        </p>
+                        <CommonTableComponent
+                            name="product"
+                            listFn={searchResultListFn}
+                            tableHeader={ProductSearchTableHeader}
+                            column={ProductSearchTableColumn}
+                        />
+                    </div>
+                )
             )}
         </div>
     );

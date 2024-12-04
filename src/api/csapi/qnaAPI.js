@@ -30,6 +30,10 @@ export const getFQNAList = async (page) => { // status = false
 
     const res = await jwtAxios.get(`${host}/statuslist/false?page=${pageValue}`);
 
+    console.log("------")
+
+    console.log(res.data);
+
     return res.data;
 }
 
