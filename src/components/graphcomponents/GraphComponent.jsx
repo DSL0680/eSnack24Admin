@@ -217,6 +217,7 @@ function GraphComponent() {
                 <h1 className="text-3xl font-bold text-gray-900 text-center mb-8">통계 차트</h1>
 
                 {/* 사용자 통계 섹션 */}
+                <div className="grid grid-cols-2 gap-8 mb-8">
                 <div className="bg-white shadow rounded-lg p-6 mb-8">
                     <h2 className="text-xl font-semibold text-gray-800 mb-4">사용자 국가별 차트</h2>
                     <div className="h-96">
@@ -230,7 +231,9 @@ function GraphComponent() {
                         {ageData && <Bar data={ageData} options={chartOptions}/>}
                     </div>
                 </div>
+                </div>
 
+                <div className="grid grid-cols-2 gap-8 mb-8">
                 <div className="bg-white shadow rounded-lg p-6 mb-8">
                     <h2 className="text-xl font-semibold text-gray-800 mb-4">사용자 알러지 차트</h2>
                     <div className="h-96">
@@ -245,7 +248,9 @@ function GraphComponent() {
                         {productCategoryData && <Bar data={productCategoryData} options={chartOptions}/>}
                     </div>
                 </div>
+                </div>
 
+                <div className="grid grid-cols-2 gap-8 mb-8">
                 <div className="bg-white shadow rounded-lg p-6 mb-8">
                     <h2 className="text-xl font-semibold text-gray-800 mb-4">제품 알레르기 통계</h2>
                     <div className="h-96">
@@ -260,7 +265,9 @@ function GraphComponent() {
                             <Bar data={productAllergyDistributionData} options={chartOptions}/>}
                     </div>
                 </div>
+                </div>
 
+                <div className="grid grid-cols-2 gap-8 mb-8">
                 <div className="bg-white shadow rounded-lg p-6 mb-8">
                     <h2 className="text-xl font-semibold text-gray-800 mb-4">제품 재고 현황</h2>
                     <div className="h-96">
@@ -274,7 +281,9 @@ function GraphComponent() {
                         {productstarCountData && <Pie data={productstarCountData} options={chartOptions}/>}
                     </div>
                 </div>
+                </div>
 
+                <div className="grid grid-cols-2 gap-8 mb-8">
                 <div className="bg-white shadow rounded-lg p-6 mb-8">
                     <h2 className="text-xl font-semibold text-gray-800 mb-4">제품 장바구니 통계</h2>
                     <div className="h-96">
@@ -287,6 +296,7 @@ function GraphComponent() {
                     <div className="h-96">
                         {productorderCountData && <Bar data={productorderCountData} options={chartOptions}/>}
                     </div>
+                </div>
                 </div>
 
             </div>
