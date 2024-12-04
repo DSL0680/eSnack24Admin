@@ -13,7 +13,7 @@ export const getAllProducts = async (page) => {
     console.log(res.data);
 
     return res.data;
-}
+};
 
 // 제품-알러지 리스트 조회
 export const getProductAllergyList = async (page) => {
@@ -29,7 +29,7 @@ export const getProductAllergyList = async (page) => {
     console.log(res.data);
 
     return res.data;
-}
+};
 
 // 제품 상세 조회
 export const getProductDetail = async (pno) => {
@@ -38,57 +38,66 @@ export const getProductDetail = async (pno) => {
     console.log(res.data);
 
     return res.data;
-}
+};
 
 // 제품 추가
 export const registerProduct = async (product) => {
-    const res = await jwtAxios.post(`${host}/add`, product);
-
-    console.log(res.data);
-
+    const res = await jwtAxios.post(`${host}/add`, product, {
+        headers: {
+            'Content-Type': 'application/json'  // multipart/form-data에서 변경
+        }
+    });
     return res.data;
-}
+};
 
 // 제품 수정
-export const updateProduct = async (pno, updatedProduct) => {
-    const res = await jwtAxios.put(`${host}/edit/${pno}`, updatedProduct);
-
-    console.log(res.data);
-
+export const editProduct = async (pno, editProduct) => {
+    const res = await jwtAxios.put(`${host}/edit/${pno}`, editProduct, {
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    });
     return res.data;
-}
+};
 
-// 제품 삭제 (논리적 삭제)
+// 제품 삭제
 export const deleteProduct = async (pno) => {
-    const res = await jwtAxios.delete(`${host}/delete/${pno}`);
-
-    console.log(res.data);
-
+    const res = await jwtAxios.delete(`${host}/delete/${pno}`, {
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    });
     return res.data;
-}
+};
+
 
 // 제품명 기반 검색
 export const searchProducts = async (searchParams) => {
     const res = await jwtAxios.get(`${host}/search`, {
         params: {
             ptitle_ko: searchParams.keyword || '',
-            pcategory_ko: searchParams.category || '',
+            pcategory_ko: searchParams.pcategory_ko || '',
             page: searchParams.page || 1,
             size: searchParams.size || 10
         }
     });
     return res.data;
-}
+};
 
 // 알레르기 기반 검색
-export const searchProductsByAllergy = async (allergyParams) => {
-    const res = await jwtAxios.get(`${host}/allergy-search`, {
-        params: {
-            ptitle_ko: allergyParams.keyword || '',
-            allergySelectList: allergyParams.allergyIds || [],
-            page: allergyParams.page || 1,
-            size: allergyParams.size || 10
-        }
+export const searchProductsByAllergy = async (searchParams) => {
+    const params = new URLSearchParams();
+    params.append('page', searchParams.page || 1);
+    params.append('size', searchParams.size || 10);
+
+    if (searchParams.ptitle_ko) {
+        params.append('ptitle_ko', searchParams.ptitle_ko);
+    }
+
+    searchParams.allergySelectList?.forEach(id => {
+        params.append('allergySelectList', id);
     });
+
+    const res = await jwtAxios.get(`${host}/search-allergy?${params.toString()}`);
     return res.data;
-}
+};
