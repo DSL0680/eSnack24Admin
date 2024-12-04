@@ -32,10 +32,10 @@ const getFormattedArray = (value) => {
     if (Array.isArray(value)) {
         return value.join(", ");
     }
-    return value;
+    return value || "-";
 };
 
-function CommonTableComponent({ name, tableHeader, column, listFn}) {
+function CommonTableComponent({ name, tableHeader, column, listFn }) {
     const [data, setData] = useState(init);
     const [loading, setLoading] = useState(false);
     const [searchParams, setSearchParams] = useSearchParams();
@@ -53,6 +53,29 @@ function CommonTableComponent({ name, tableHeader, column, listFn}) {
             pathname: `/${name}/detail/${num}`,
             search: location.search,
         });
+    };
+
+    const renderCell = (col, value) => {
+        if (col === "qstatus" || col === "castatus" || col === "cpstatus") {
+            return (
+                <span
+                    className={`px-2 py-1 rounded-lg ${
+                        value
+                            ? "bg-green-200 text-green-800 font-bold"
+                            : "bg-red-200 text-red-800 font-bold"
+                    }`}
+                >
+                    {value ? "답변완료" : "답변대기"}
+                </span>
+            );
+        }
+        if (col.endsWith("date") || col.endsWith("birth")) {
+            return formatDate(value);
+        }
+        if (col.endsWith("List")) {
+            return getFormattedArray(value);
+        }
+        return value || "-";
     };
 
     useEffect(() => {
@@ -74,7 +97,7 @@ function CommonTableComponent({ name, tableHeader, column, listFn}) {
                         <th
                             key={item}
                             className="px-5 py-3 text-center"
-                            style={{width: `${100 / tableHeader.length}%`}} // 동적으로 열 너비 설정
+                            style={{ width: `${100 / tableHeader.length}%` }}
                         >
                             {item}
                         </th>
@@ -101,23 +124,9 @@ function CommonTableComponent({ name, tableHeader, column, listFn}) {
                             {column.slice(1).map((col) => (
                                 <td
                                     key={col}
-                                    className={`px-5 py-4 text-sm text-center truncate ${
-                                        col === "qstatus"
-                                            ? item[col]
-                                                ? "bg-green-200 text-green-800 font-bold" 
-                                                : "bg-red-200 text-red-800 font-bold"   
-                                            : "text-gray-600"
-                                    }`}
+                                    className={`px-5 py-4 text-sm text-center truncate`}
                                 >
-                                    {col === "qstatus"
-                                        ? item[col]
-                                            ? "답변완료"
-                                            : "답변대기"
-                                        : col.endsWith("date") || col.endsWith("birth")
-                                            ? formatDate(item[col])
-                                            : col.endsWith("List")
-                                                ? getFormattedArray(item[col])
-                                                : item[col]}
+                                    {renderCell(col, item[col])}
                                 </td>
                             ))}
                         </tr>
@@ -128,7 +137,7 @@ function CommonTableComponent({ name, tableHeader, column, listFn}) {
                 <tr>
                     <td colSpan={column.length}>
                         <div className="flex justify-center items-center py-4">
-                            <PageComponent pageResponse={data} changePage={changePage}/>
+                            <PageComponent pageResponse={data} changePage={changePage} />
                         </div>
                     </td>
                 </tr>
