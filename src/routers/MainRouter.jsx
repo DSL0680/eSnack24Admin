@@ -21,10 +21,10 @@ const MainRouter = createBrowserRouter([
         FAQRouter,
         ProductRouter,
         userRouter,
+        ExchangeRateRouter,
         CommunityProductRouter,
         CommunityAllergyRouter,
         GraphRouter,
-        ExchangeRateRouter,
         ReviewRouter
 
     ]

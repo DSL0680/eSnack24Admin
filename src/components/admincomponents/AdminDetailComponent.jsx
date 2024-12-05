@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import {deleteAdmin, editAdmin, getAdminOne} from "../../api/adminapi/adminAPI.js";
+import {deleteAdmin, editAdmin, getAdminAnswerList, getAdminOne} from "../../api/adminapi/adminAPI.js";
 import { useParams, useNavigate, useSearchParams } from "react-router-dom";
 import CommonModal from "../../common/CommonModal.jsx";
+import CommonTableComponent from "../../common/CommonTableComponent.jsx";
+import {AdminAnswerTableColumn, AdminAnswerTableHeader} from "../../pages/adminpages/AdminIndexPage.jsx";
 
 const init = {
     admid: '',
@@ -218,6 +220,15 @@ function AdminDetailComponent() {
                     </button>
                 </div>
             </div>
+
+            <CommonTableComponent
+                name={"qna"}
+                listFn={() => getAdminAnswerList(admno, page)}
+                tableHeader={AdminAnswerTableHeader}
+                column={AdminAnswerTableColumn}
+            >
+            </CommonTableComponent>
+
         </>
     );
 }

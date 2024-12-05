@@ -18,6 +18,14 @@ export const AdminWorkTableColumn = [
     "admno", "admid", "admname", "admrole", "count"
 ]
 
+export const AdminAnswerTableHeader = [
+    "제목", "등록시간", "수정시간"
+]
+
+export const AdminAnswerTableColumn = [
+    "qno", "qtitle", "qregdate", "qmoddate"
+]
+
 function AdminIndexPage() {
     return (
         <>
