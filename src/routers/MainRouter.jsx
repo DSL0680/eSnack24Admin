@@ -23,6 +23,7 @@ const MainRouter = createBrowserRouter([
         CommunityProductRouter,
         CommunityAllergyRouter,
         GraphRouter,
+        ExchangeRateRouter
         ReviewRouter
 
     ]

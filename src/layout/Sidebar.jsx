@@ -32,10 +32,11 @@ function Sidebar() {
             hasDropdown: true,
             subItems: [
                 { name: "리스트", path: "/product/list" },
-                { name: "알러지 기준 리스트", path: "/product/allergy-list" },
+                // { name: "알러지 기준 리스트", path: "/product/allergy-list" },
                 { name: "제품명 검색", path: "/product/search" },
                 { name: "알러지 기준 검색", path: "/product/allergy-search" },
-                { name: "제품 등록", path: "/product/add" }
+                { name: "제품 등록", path: "/product/add" },
+                { name: "환율", path: "/exchange-rate/list" }
             ]
         },
         {
