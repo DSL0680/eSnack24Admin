@@ -5,7 +5,7 @@ export const QNAListTableHeader = [
 ]
 
 export const QNAListTableColumn = [
-    "qno", "qtitle", "uemail", "admname", "gregdate", "qstatus"
+    "qno", "qtitle", "uemail", "admname", "qregdate", "qstatus"
 ]
 
 function QnaListPage() {

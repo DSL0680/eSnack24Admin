@@ -40,6 +40,15 @@ function Sidebar() {
             ]
         },
         {
+            name: "리뷰 관리",
+            path: "/review",
+            icon: "M7 8h10M7 12h4m1 8l-4-4H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-3l-4 4z",
+            hasDropdown: true,
+            subItems: [
+                { name: "리스트", path: "/review/list" }
+            ]
+        },
+        {
             name: "사용자",
             path: "/user",
             icon: "M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01",
@@ -71,7 +80,7 @@ function Sidebar() {
         },
         {
             name: "QNA",
-            path: "/qna/list",
+            path: "/qna",
             icon: "M11 3.055A9.001 9.001 0 1020.945 13H11V3.055z",
             hasDropdown: true,
             subItems: [
@@ -80,7 +89,7 @@ function Sidebar() {
         },
         {
             name: "FAQ",
-            path: "/faq/list",
+            path: "/faq",
             icon: "M15 15l-2 5L9 9l11 4-5 2zm0 0l5 5M7.188 2.239l.777 2.897M5.136 7.965l-2.898-.777M13.95 4.05l-2.122 2.122m-5.657 5.656l-2.12 2.122",
             hasDropdown: true,
             subItems: [

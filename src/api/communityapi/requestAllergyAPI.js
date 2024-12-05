@@ -44,3 +44,25 @@ export const deleteRequestAllergy = async (cano) => {
 
     return res.data
 }
+
+export const getTRequestAllergyList = async (page) => {
+
+    const pageValue = (Number)(page || 1)
+
+    const res = await jwtAxios.get(`${host}/statuslist/true?page=${pageValue}`);
+
+    console.log(res.data);
+
+    return res.data;
+}
+
+export const getFRequestAllergyList = async (page) => {
+
+    const pageValue = (Number)(page || 1)
+
+    const res = await jwtAxios.get(`${host}/statuslist/false?page=${pageValue}`);
+
+    console.log(res.data);
+
+    return res.data;
+}
