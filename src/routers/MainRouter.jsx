@@ -9,6 +9,7 @@ import CommunityAllergyRouter from "./CommunityAllergyRouter.jsx";
 import FAQRouter from "./FAQRouter.jsx";
 import GraphRouter from "./GraphRouter.jsx";
 import ReviewRouter from "./ReviewRouter.jsx";
+import ExchangeRateRouter from "./ExchangeRateRouter.jsx";
 
 const MainRouter = createBrowserRouter([
         {
@@ -23,7 +24,7 @@ const MainRouter = createBrowserRouter([
         CommunityProductRouter,
         CommunityAllergyRouter,
         GraphRouter,
-        ExchangeRateRouter
+        ExchangeRateRouter,
         ReviewRouter
 
     ]
