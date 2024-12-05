@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
-import {useNavigate, useParams, useSearchParams} from "react-router-dom";
+import { useNavigate, useParams, useSearchParams } from "react-router-dom";
 import { getDetailUser } from "../../api/userapi/userAPI.js";
-import {formatDate} from "../../common/CommonTableComponent.jsx";
+import { formatDate } from "../../common/CommonTableComponent.jsx";
 
 function UserDetailComponent() {
     const param = useParams();
@@ -9,6 +9,7 @@ function UserDetailComponent() {
 
     const [userData, setUserData] = useState(null);
     const [loading, setLoading] = useState(true);
+    const [visibleOrders, setVisibleOrders] = useState(5);
 
     const [searchParams] = useSearchParams();
     const page = searchParams.get("page");
@@ -28,12 +29,15 @@ function UserDetailComponent() {
         };
 
         fetchData();
-    }, [no]); // no가 변경될 때마다 데이터 재페치
-
+    }, [no]);
 
     const handleBackClick = () => {
         if (page) navigate(`/user/list?page=${page}`);
         else navigate('/user/list');
+    };
+
+    const handleShowMore = () => {
+        setVisibleOrders((prev) => prev + 5);
     };
 
     if (loading) {
@@ -68,7 +72,7 @@ function UserDetailComponent() {
                 </p>
             </div>
 
-            <div className="bg-white shadow-md rounded-lg p-6">
+            <div className="bg-white shadow-md rounded-lg p-6 mb-6">
                 <h2 className="text-xl font-semibold text-gray-800 mb-4">알레르기 정보</h2>
                 {userData.allergyList && userData.allergyList.length > 0 ? (
                     <ul className="list-disc list-inside">
@@ -80,6 +84,68 @@ function UserDetailComponent() {
                     </ul>
                 ) : (
                     <p className="text-gray-500">등록된 알레르기 정보가 없습니다.</p>
+                )}
+            </div>
+
+            <div className="bg-white shadow-md rounded-lg p-6 mb-6">
+                <h2 className="text-xl font-semibold text-gray-800 mb-4 border-b pb-2">주문 정보</h2>
+                {userData.orderList && userData.orderList.length > 0 ? (
+                    <div className="overflow-x-auto">
+                        <table className="table-auto w-full border border-gray-300 rounded-lg shadow-sm">
+                            <thead className="bg-gray-100">
+                            <tr>
+                                <th className="px-4 py-2 text-left text-sm font-medium text-gray-700 border-b border-gray-300">
+                                    결제 방법
+                                </th>
+                                <th className="px-4 py-2 text-left text-sm font-medium text-gray-700 border-b border-gray-300">
+                                    총 금액
+                                </th>
+                                <th className="px-4 py-2 text-left text-sm font-medium text-gray-700 border-b border-gray-300">통화</th>
+                                <th className="px-4 py-2 text-left text-sm font-medium text-gray-700 border-b border-gray-300">상태</th>
+                                <th className="px-4 py-2 text-left text-sm font-medium text-gray-700 border-b border-gray-300">주문일</th>
+                                <th className="px-4 py-2 text-left text-sm font-medium text-gray-700 border-b border-gray-300">완료일</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {userData.orderList.slice(0, visibleOrders).map((order, index) => (
+                                <tr key={index} className={`border-b ${index % 2 === 0 ? "bg-white" : "bg-gray-50"}`}>
+                                    <td className="px-4 py-2 text-sm text-gray-600">{order.method}</td>
+                                    <td className="px-4 py-2 text-sm text-gray-600">{order.total_amount}</td>
+                                    <td className="px-4 py-2 text-sm text-gray-600">{order.currency}</td>
+                                    <td
+                                        className={`px-4 py-2 text-sm font-medium ${
+                                            order.status === "Complete"
+                                                ? "text-green-600"
+                                                : order.status === "Create"
+                                                    ? "text-yellow-600"
+                                                    : "text-red-600"
+                                        }`}
+                                    >
+                                        {order.status}
+                                    </td>
+                                    <td className="px-4 py-2 text-sm text-gray-600">{formatDate(order.oregdate)}</td>
+                                    <td
+                                        className={`px-4 py-2 text-sm ${
+                                            order.ocompletedate ? "text-gray-600" : "text-red-700"
+                                        }`}
+                                    >
+                                        {order.ocompletedate ? formatDate(order.ocompletedate) : "미완료"}
+                                    </td>
+                                </tr>
+                            ))}
+                            </tbody>
+                        </table>
+                        {visibleOrders < userData.orderList.length && (
+                            <button
+                                onClick={handleShowMore}
+                                className="mt-4 px-4 py-2 bg-blue-500 text-white font-semibold rounded-lg shadow-md hover:bg-blue-600 transition"
+                            >
+                                더보기
+                            </button>
+                        )}
+                    </div>
+                ) : (
+                    <p className="text-gray-500 mt-4">등록된 주문 정보가 없습니다.</p>
                 )}
             </div>
 
