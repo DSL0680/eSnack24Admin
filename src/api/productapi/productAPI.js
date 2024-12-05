@@ -75,7 +75,7 @@ export const deleteProduct = async (pno) => {
 export const searchProducts = async (searchParams) => {
     const res = await jwtAxios.get(`${host}/search`, {
         params: {
-            ptitle_ko: searchParams.keyword || '',
+            ptitle_ko: searchParams.ptitle_ko || '',
             pcategory_ko: searchParams.pcategory_ko || '',
             page: searchParams.page || 1,
             size: searchParams.size || 10
