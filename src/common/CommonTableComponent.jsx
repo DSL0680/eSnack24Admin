@@ -115,22 +115,33 @@ function CommonTableComponent({ name, tableHeader, column, listFn }) {
                         </td>
                     </tr>
                 ) : (
-                    data.dtoList.map((item) => (
-                        <tr
-                            key={item.id || item[column[0]]}
-                            className="hover:bg-gray-100 border-b border-gray-200"
-                            onClick={() => linkClick(item[column[0]])}
-                        >
-                            {column.slice(1).map((col) => (
-                                <td
-                                    key={col}
-                                    className={`px-5 py-4 text-sm text-center truncate`}
-                                >
-                                    {renderCell(col, item[col])}
-                                </td>
-                            ))}
+                    data.dtoList.length > 0 ? (
+                        data.dtoList.map((item) => (
+                            <tr
+                                key={item.id || item[column[0]]}
+                                className="hover:bg-gray-100 border-b border-gray-200"
+                                onClick={() => linkClick(item[column[0]])}
+                            >
+                                {column.slice(1).map((col) => (
+                                    <td
+                                        key={col}
+                                        className={`px-5 py-4 text-sm text-center truncate`}
+                                    >
+                                        {renderCell(col, item[col])}
+                                    </td>
+                                ))}
+                            </tr>
+                        ))
+                    ) : (
+                        <tr>
+                            <td
+                                colSpan={tableHeader.length}
+                                className="text-center py-4 text-gray-500"
+                            >
+                                해당 조건에 맞는 검색 결과가 없습니다.
+                            </td>
                         </tr>
-                    ))
+                    )
                 )}
                 </tbody>
                 <tfoot>

@@ -16,44 +16,45 @@ const ALLERGY_TYPES = [
 function ProductAllergySearchComponent() {
     const [keyword, setKeyword] = useState('');
     const [selectedAllergies, setSelectedAllergies] = useState([]);
-    const [searchResult, setSearchResult] = useState(null);
-    const [loading, setLoading] = useState(false);
+    const [totalCount, setTotalCount] = useState(0);
+
+    const searchProductAllergyList = async (page) => {
+        const result = await searchProductsByAllergy({
+            ptitle_ko: keyword,
+            allergySelectList: selectedAllergies.includes('none') ? [] : selectedAllergies,
+            page: page,
+            size: 10
+        });
+
+        // 총 건수 상태 업데이트
+        setTotalCount(result.totalCount);
+
+        return result;
+    };
 
     const handleSearch = async () => {
-        try {
-            setLoading(true);
-            const result = await searchProductsByAllergy({
-                ptitle_ko: keyword,
-                allergySelectList: selectedAllergies.includes('none') ? [] : selectedAllergies,
-                page: 1,
-                size: 10
-            });
-            setSearchResult(result);
-        } catch (error) {
-            console.error('검색 요청 실패:', error.response || error);
-        } finally {
-            setLoading(false);
+        // 키워드나 알레르기 선택 시 검색 진행
+        if (keyword.trim() !== '' || selectedAllergies.length > 0) {
+            // 첫 페이지로 검색
+            await searchProductAllergyList(1);
         }
     };
 
     const handleAllergyToggle = (allergyId) => {
         if (allergyId === 'none') {
-            setSelectedAllergies(prev => prev.includes('none') ? [] : ['none']);
+            // 알레르기 유발성분 없음 선택 시 -1 값 전달
+            setSelectedAllergies(prev => prev.includes(-1) ? [] : [-1]);
             return;
         }
 
         setSelectedAllergies(prev => {
-            if (prev.includes('none')) {
+            if (prev.includes(-1)) {
                 return [allergyId];
             }
             return prev.includes(allergyId)
                 ? prev.filter(id => id !== allergyId)
                 : [...prev, allergyId];
         });
-    };
-
-    const searchResultListFn = () => {
-        return Promise.resolve(searchResult);
     };
 
     return (
@@ -105,24 +106,20 @@ function ProductAllergySearchComponent() {
                 </div>
             </div>
 
-            {/* 검색 결과 */}
-            {loading ? (
-                <div className="text-center text-gray-600">검색 중...</div>
-            ) : (
-                searchResult && (
-                    <div>
-                        <p className="mb-4 text-gray-600">
-                            총 {searchResult.totalCount}개의 제품이 검색되었습니다.
-                        </p>
-                        <CommonTableComponent
-                            name="product"
-                            listFn={searchResultListFn}
-                            tableHeader={ProductAllergySearchTableHeader}
-                            column={ProductAllergySearchTableColumn}
-                        />
-                    </div>
-                )
+            {/* 총 건수 표시 추가 */}
+            {totalCount > 0 && (
+                <p className="mb-4 text-gray-600">
+                    총 {totalCount}개의 제품이 검색되었습니다.
+                </p>
             )}
+
+            <CommonTableComponent
+                name="product"
+                listFn={searchProductAllergyList}
+                tableHeader={ProductAllergySearchTableHeader}
+                column={ProductAllergySearchTableColumn}
+                emptyMessage="해당 조건에 맞는 검색 결과가 없습니다."
+            />
         </div>
     );
 }

@@ -3,44 +3,36 @@ import { searchProducts } from '../../api/productapi/productAPI';
 import CommonTableComponent from "../../common/CommonTableComponent";
 import { ProductSearchTableColumn, ProductSearchTableHeader } from "../../pages/productpages/ProductSearchPage.jsx";
 
-// 카테고리 목록
 const PRODUCT_CATEGORIES = [
-    "칩",
-    "쿠키/크래커",
-    "쥐포/안주스낵",
-    "과자류",
-    "초콜릿/캔디",
-    "견과일/넛트류",
-    "젤리/푸딩"
+    "칩", "쿠키/크래커", "쥐포/안주스낵", "과자류",
+    "초콜릿/캔디", "견과일/넛트류", "젤리/푸딩"
 ];
 
 function ProductSearchComponent() {
     const [keyword, setKeyword] = useState('');
     const [selectedCategory, setSelectedCategory] = useState('');
-    const [searchResult, setSearchResult] = useState(null);
-    const [loading, setLoading] = useState(false);
+    const [totalCount, setTotalCount] = useState(0);
 
-    const handleSearch = async () => {
-        if (keyword.trim() === '' && !selectedCategory) return;
-        setLoading(true);
+    const searchProductList = async (page) => {
+        const result = await searchProducts({
+            ptitle_ko: keyword,
+            pcategory_ko: selectedCategory,
+            page: page,
+            size: 10
+        });
 
-        try {
-            const result = await searchProducts({
-                keyword: keyword,
-                pcategory_ko: selectedCategory,
-                page: 1,
-                size: 10
-            });
-            setSearchResult(result);
-        } catch (error) {
-            console.error('검색 중 오류 발생', error);
-        } finally {
-            setLoading(false);
-        }
+        // 총 건수 상태 업데이트
+        setTotalCount(result.totalCount);
+
+        return result;
     };
 
-    const searchResultListFn = () => {
-        return Promise.resolve(searchResult);
+    const handleSearch = async () => {
+        // 키워드나 카테고리가 있을 때만 검색 진행
+        if (keyword.trim() !== '' || selectedCategory !== '') {
+            // 첫 페이지로 검색
+            await searchProductList(1);
+        }
     };
 
     return (
@@ -63,7 +55,6 @@ function ProductSearchComponent() {
             </div>
 
             <div className="flex flex-wrap gap-2 mb-4">
-                {/* 전체 카테고리 버튼 */}
                 <button
                     key="all"
                     onClick={() => {
@@ -77,7 +68,6 @@ function ProductSearchComponent() {
                     전체
                 </button>
 
-                {/* 개별 카테고리 버튼들 */}
                 {PRODUCT_CATEGORIES.map((category) => (
                     <button
                         key={category}
@@ -94,23 +84,20 @@ function ProductSearchComponent() {
                 ))}
             </div>
 
-            {loading ? (
-                <div className="text-center text-gray-600">검색 중...</div>
-            ) : (
-                searchResult && (
-                    <div>
-                        <p className="mb-4 text-gray-600">
-                            총 {searchResult.totalCount}개의 제품이 검색되었습니다.
-                        </p>
-                        <CommonTableComponent
-                            name="product"
-                            listFn={searchResultListFn}
-                            tableHeader={ProductSearchTableHeader}
-                            column={ProductSearchTableColumn}
-                        />
-                    </div>
-                )
+            {/* 총 건수 표시 추가 */}
+            {totalCount > 0 && (
+                <p className="mb-4 text-gray-600">
+                    총 {totalCount}개의 제품이 검색되었습니다.
+                </p>
             )}
+
+            <CommonTableComponent
+                name="product"
+                listFn={searchProductList}
+                tableHeader={ProductSearchTableHeader}
+                column={ProductSearchTableColumn}
+                emptyMessage="해당 조건에 맞는 검색 결과가 없습니다."
+            />
         </div>
     );
 }

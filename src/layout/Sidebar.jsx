@@ -31,7 +31,7 @@ function Sidebar() {
             icon: "M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10m0-10L4 17m16 0l-8 4", // SVG 경로
             hasDropdown: true,
             subItems: [
-                { name: "리스트", path: "/product/list" },
+                // { name: "리스트", path: "/product/list" },
                 // { name: "알러지 기준 리스트", path: "/product/allergy-list" },
                 { name: "제품명 검색", path: "/product/search" },
                 { name: "알러지 기준 검색", path: "/product/allergy-search" },
