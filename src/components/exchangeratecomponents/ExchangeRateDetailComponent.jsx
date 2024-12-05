@@ -107,7 +107,7 @@ const ExchangeRateDetailComponent = () => {
                         />
                     </div>
                     <div>
-                        <label className="block text-sm font-medium text-gray-700 mb-2">환율</label>
+                        <label className="block text-sm font-medium text-gray-700 mb-2">환율  (1000원 당 목표 통화를 입력하세요)</label>
                         <input
                             type="number"
                             step="0.01"

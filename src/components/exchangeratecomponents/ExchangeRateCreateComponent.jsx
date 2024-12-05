@@ -1,11 +1,10 @@
 import React, {useEffect, useState} from "react";
 import {useNavigate, useSearchParams} from "react-router-dom";
 import {useSelector} from "react-redux";
-import {createExchangeRate} from "../../api/exchangerateapi/exchangeRateAPI.js";
+import {checkExchangeRate, createExchangeRate} from "../../api/exchangerateapi/exchangeRateAPI.js";
 import CommonModal from "../../common/CommonModal.jsx";
 
 const init = {
-    baseCurrency: "",
     targetCurrency: "",
     rate: "",
     admno: 0
@@ -15,6 +14,7 @@ const ExchangeRateCreateComponent = () => {
 
     const [data, setData] = useState(init);
     const [modalOpen, setModalOpen] = useState(false);
+    const [failModal, setFailModal] = useState(false);
 
     const navigate = useNavigate();
     const [searchParams] = useSearchParams();
@@ -32,7 +32,13 @@ const ExchangeRateCreateComponent = () => {
 
     const handleClickCreate = () => {
 
-        setModalOpen(true);
+        console.log(data.targetCurrency);
+
+        checkExchangeRate(data.targetCurrency).then((res) => {
+
+            if(res === false) setModalOpen(true);
+            else setFailModal(true);
+        })
     }
 
     const closeFn = () => {
@@ -61,6 +67,22 @@ const ExchangeRateCreateComponent = () => {
                 />
             )}
 
+            {failModal && (
+                <div className="bg-white rounded-lg shadow-xl p-6 w-full max-w-sm mx-auto transition-transform transform-gpu">
+                    <p className="text-center text-green-600 text-lg font-semibold mb-4">
+                        등록 실패(같은 항목 존재)
+                    </p>
+                    <div className="flex justify-center">
+                        <button
+                            className="px-6 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600 transition duration-200 focus:outline-none focus:ring focus:ring-green-500"
+                            onClick={() => setFailModal(false)}
+                        >
+                            확인
+                        </button>
+                    </div>
+                </div>
+            )}
+
             <div className="max-w-4xl mx-auto bg-white shadow-lg rounded-lg p-6">
                 <h2 className="text-xl font-semibold mb-4">환율 정보 등록</h2>
                 <div className="grid grid-cols-2 gap-6">
@@ -68,12 +90,9 @@ const ExchangeRateCreateComponent = () => {
                         <label className="block text-sm font-medium text-gray-700 mb-2">기본 통화</label>
                         <input
                             type="text"
-                            value={data.baseCurrency}
-                            onChange={(e) =>
-                                setData({...data, baseCurrency: e.target.value})
-                            }
-                            className="w-full px-4 py-2 border rounded-lg shadow-sm focus:ring-green-500 focus:border-green-500"
-                            placeholder="예: USD"
+                            value="KRW"
+                            readOnly
+                            className="w-full px-4 py-2 border rounded-lg bg-gray-100 text-gray-500 cursor-not-allowed"
                         />
                     </div>
                     <div>
