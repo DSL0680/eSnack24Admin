@@ -62,7 +62,7 @@ function ProductDetailComponent() {
                     {/* 제품 이미지 */}
                     <div className="bg-white rounded-lg shadow-lg overflow-hidden">
                         <img
-                            src={`https://esnack24-product-bucket.s3.ap-northeast-2.amazonaws.com/product/s_${product.pfilename}`}
+                            src={`https://esnack24-product-bucket.s3.ap-northeast-2.amazonaws.com/product/${product.pfilename}`}
                             alt={product.ptitle_ko}
                             className="w-full h-[500px] object-contain"
                         />

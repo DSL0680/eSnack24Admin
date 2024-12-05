@@ -39,6 +39,15 @@ function Sidebar() {
             ]
         },
         {
+            name: "리뷰 관리",
+            path: "/review",
+            icon: "M7 8h10M7 12h4m1 8l-4-4H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-3l-4 4z",
+            hasDropdown: true,
+            subItems: [
+                { name: "리스트", path: "/review/list" }
+            ]
+        },
+        {
             name: "사용자",
             path: "/user",
             icon: "M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01",
