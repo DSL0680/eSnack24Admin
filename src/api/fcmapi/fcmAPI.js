@@ -1,6 +1,6 @@
 import jwtAxios from "../../util/jwtUtil.js";
 
-export const host  = 'http://localhost:8080/api/fcm';
+const host = `${import.meta.env.VITE_API_HOST}/fcm`;
 
 export const savetoken = async (fcm) => {
 

@@ -1,7 +1,7 @@
 import axios from "axios";
 import jwtAxios from "../../util/jwtUtil.js";
 
-const host = 'http://localhost:8080/admin/api/v1/admin';
+const host = `${import.meta.env.VITE_API_HOST}/admin`;
 
 export const refreshRequest = async (accessToken, refreshToken) => {
 

@@ -1,6 +1,6 @@
 import jwtAxios from "../../util/jwtUtil.js";
 
-const host = "http://localhost:8080/admin/api/v1/request/product";
+const host = `${import.meta.env.VITE_API_HOST}/request/product`;
 
 export const getRequestProductList = async (page) => {
 
