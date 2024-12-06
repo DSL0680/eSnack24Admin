@@ -1,7 +1,7 @@
 import jwtAxios from "../../util/jwtUtil.js";
 
 
-export const host  = 'http://localhost:8080/admin/api/v1/qna';
+const host = `${import.meta.env.VITE_API_HOST}/qna`;
 
 export const getQNAList = async (page) => {
 

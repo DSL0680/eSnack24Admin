@@ -1,7 +1,7 @@
 import jwtAxios from "../../util/jwtUtil.js";
 
 
-const host = "http://localhost:8080/admin/api/v1/graph";
+const host = `${import.meta.env.VITE_API_HOST}/graph`;
 
 // 유저 관련 그래프
 export const getUserAllergyCount = async () => {

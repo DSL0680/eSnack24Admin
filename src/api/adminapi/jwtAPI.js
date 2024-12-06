@@ -4,7 +4,7 @@ import axios from "axios";
 
 
 
-const host = 'http://localhost:8080/admin/api/v1/jwt';
+const host = `${import.meta.env.VITE_API_HOST}/jwt`;
 
 export const loginAdmin = async (tokenRequestDTO) => {
 
