@@ -21,7 +21,7 @@ function FireBase() {
 
         if (permission === "granted") {
             const token = await getToken(messaging, {
-                vapidKey: 'BGzwrT1FHLUSxVE8y0SqN6cR3OENko0K4Nm10Et0CarmcNn-5tZO-HYRxwbF3KEahh0wbsiL6sRxkF8NCvSp4e8',
+                vapidKey: import.meta.env.VITE_FIREBASE_VAPID_KEY,
             });
 
             console.log("--------111");
