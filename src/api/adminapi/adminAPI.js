@@ -1,5 +1,6 @@
 import axios from "axios";
 import jwtAxios from "../../util/jwtUtil.js";
+import * as res from "autoprefixer";
 
 const host = `${import.meta.env.VITE_API_HOST}/admin`;
 
@@ -59,6 +60,17 @@ export const getAdminWorkListDesc = async (page) => {
     const pageValue = (Number)(page || 1)
 
     const res = await jwtAxios.get(`${host}/workList/DESC?page=${pageValue}`)
+
+    console.log(res.data)
+
+    return res.data;
+}
+
+export const getAdminAnswerList = async (admno, page) => {
+
+    const pageValue = (Number)(page || 1)
+
+    const res = await jwtAxios.get(`${host}/answerList/${admno}?page=${pageValue}`);
 
     console.log(res.data)
 

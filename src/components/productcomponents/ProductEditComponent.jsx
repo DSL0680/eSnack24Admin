@@ -173,7 +173,7 @@ function ProductEditComponent() {
             console.log('최종 전송 데이터:', submitData);
 
             await editProduct(pno, submitData);
-            navigate('/product/list');
+            navigate('/product/search');
         } catch (error) {
             // 에러 상세 로깅
             console.error('제품 수정 실패:', error);

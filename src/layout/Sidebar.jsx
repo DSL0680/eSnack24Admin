@@ -31,11 +31,21 @@ function Sidebar() {
             icon: "M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10m0-10L4 17m16 0l-8 4", // SVG 경로
             hasDropdown: true,
             subItems: [
-                { name: "리스트", path: "/product/list" },
-                { name: "알러지 기준 리스트", path: "/product/allergy-list" },
+                // { name: "리스트", path: "/product/list" },
+                // { name: "알러지 기준 리스트", path: "/product/allergy-list" },
                 { name: "제품명 검색", path: "/product/search" },
                 { name: "알러지 기준 검색", path: "/product/allergy-search" },
-                { name: "제품 등록", path: "/product/add" }
+                { name: "제품 등록", path: "/product/add" },
+                { name: "환율", path: "/exchange-rate/list" }
+            ]
+        },
+        {
+            name: "리뷰 관리",
+            path: "/review",
+            icon: "M7 8h10M7 12h4m1 8l-4-4H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-3l-4 4z",
+            hasDropdown: true,
+            subItems: [
+                { name: "리스트", path: "/review/list" }
             ]
         },
         {
