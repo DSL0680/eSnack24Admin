@@ -1,6 +1,6 @@
 import jwtAxios from "../../util/jwtUtil.js";
 
-const host = 'http://localhost:8080/admin/api/v1/review';
+const host = `${import.meta.env.VITE_API_HOST}/review`;
 
 
 // 리뷰 리스트 조회
