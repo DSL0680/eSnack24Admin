@@ -1,14 +1,12 @@
-
 const makeArr = (from, to) => {
+  let arr = [];
 
-  let arr = []
-
-  for (let i = from; i <= to ; i++) {
-    arr.push(i)
+  for (let i = from; i <= to; i++) {
+    arr.push(i);
   }
 
-  return arr
-}
+  return arr;
+};
 
 function PageComponent({ pageResponse, changePage }) {
   const {
@@ -17,7 +15,7 @@ function PageComponent({ pageResponse, changePage }) {
     next,
     prevPage,
     nextPage,
-    current
+    current,
   } = pageResponse;
 
   return (
@@ -27,7 +25,7 @@ function PageComponent({ pageResponse, changePage }) {
           {prev && (
               <li>
                 <button
-                    className="px-3 py-1 rounded-md rounded-l-lg focus:outline-none focus:shadow-outline-purple"
+                    className="px-3 py-1 rounded-md rounded-l-lg focus:outline-none focus:ring-2 focus:ring-[#F9BB00]"
                     aria-label="Previous"
                     onClick={() => changePage(prevPage)}
                 >
@@ -46,15 +44,15 @@ function PageComponent({ pageResponse, changePage }) {
               </li>
           )}
 
-          {pageNumList.map(num => (
+          {pageNumList.map((num) => (
               <li
                   key={num}
                   className={`mx-1 px-4 py-2 text-sm font-semibold border rounded-md 
                 ${current === num
-                      ? 'bg-green-600 text-white border-green-600'
-                      : 'bg-white text-green-500 border-green-500 hover:bg-green-600 hover:text-white'
+                      ? 'bg-[#F9BB00] text-white border-[#F9BB00]'
+                      : 'bg-white text-[#F9BB00] border-[#F9BB00] hover:bg-[#F9BB00] hover:text-white'
                   } 
-              focus:outline-none focus:ring-2 focus:ring-blue-300 transition duration-200 ease-in-out`}
+              focus:outline-none focus:ring-2 focus:ring-[#F9BB00] transition duration-200 ease-in-out`}
                   onClick={() => changePage(num)}
               >
                 {num}
@@ -64,7 +62,7 @@ function PageComponent({ pageResponse, changePage }) {
           {next && (
               <li>
                 <button
-                    className="px-3 py-1 rounded-md rounded-r-lg focus:outline-none focus:shadow-outline-purple"
+                    className="px-3 py-1 rounded-md rounded-r-lg focus:outline-none focus:ring-2 focus:ring-[#F9BB00]"
                     aria-label="Next"
                     onClick={() => changePage(nextPage)}
                 >

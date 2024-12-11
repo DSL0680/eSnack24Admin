@@ -61,7 +61,7 @@ function CommonTableComponent({ name, tableHeader, column, listFn }) {
                 <span
                     className={`px-2 py-1 rounded-lg ${
                         value
-                            ? "bg-green-200 text-green-800 font-bold"
+                            ? "bg-[#F9BB00] text-white font-bold"
                             : "bg-red-200 text-red-800 font-bold"
                     }`}
                 >
@@ -91,7 +91,7 @@ function CommonTableComponent({ name, tableHeader, column, listFn }) {
     return (
         <div className="overflow-x-auto p-4">
             <table className="table-fixed w-full leading-normal border border-gray-300 rounded-lg shadow-lg">
-                <thead className="bg-gradient-to-r from-green-400 to-green-500 text-white">
+                <thead className="bg-gradient-to-r from-[#F9BB00] to-[#F9BB00] text-white">
                 <tr className="text-sm font-semibold text-left uppercase tracking-wide">
                     {tableHeader.map((item, index) => (
                         <th

@@ -48,7 +48,7 @@ function ProductDetailComponent() {
                     fn={() => deleteProduct(pno)}
                     closeModal={() => {
                         setModalOpen(false);
-                        navigate('/product/list');
+                        navigate('/product/search');
                     }}
                     cancelFn={() => setModalOpen(false)}
                 />
@@ -71,8 +71,8 @@ function ProductDetailComponent() {
 
                         {/* 제품명 (다국어) */}
                         <div className="bg-white rounded-lg shadow-lg p-6">
-                            <h4 className="text-lg font-semibold text-emerald-700 mb-4 flex items-center">
-                                <span className="w-1.5 h-6 bg-green-500 rounded-full mr-2"></span>
+                            <h4 className="text-lg font-semibold text-black mb-4 flex items-center">
+                                <span className="w-1.5 h-6 bg-[#F9BB00] rounded-full mr-2"></span>
                                 상품명
                             </h4>
                             <h3 className="text-2xl font-bold text-gray-800 mb-2">{product.ptitle_ko}</h3>
@@ -83,8 +83,8 @@ function ProductDetailComponent() {
 
                         {/* 카테고리 */}
                         <div className="bg-white rounded-lg shadow-lg p-6">
-                            <h4 className="text-lg font-semibold text-emerald-700 mb-4 flex items-center">
-                                <span className="w-1.5 h-6 bg-green-500 rounded-full mr-2"></span>
+                            <h4 className="text-lg font-semibold text-black mb-4 flex items-center">
+                                <span className="w-1.5 h-6 bg-[#F9BB00] rounded-full mr-2"></span>
                                 카테고리
                             </h4>
                             <p className="text-lg text-gray-600">{product.pcategory_ko}</p>
@@ -95,8 +95,8 @@ function ProductDetailComponent() {
                     <div className="bg-white rounded-lg shadow-lg p-6 space-y-6">
                         {/* 상세 설명 (다국어) */}
                         <div>
-                            <h4 className="text-lg font-semibold text-emerald-700 mb-4 flex items-center">
-                                <span className="w-1.5 h-6 bg-green-500 rounded-full mr-2"></span>
+                            <h4 className="text-lg font-semibold text-black mb-4 flex items-center">
+                                <span className="w-1.5 h-6 bg-[#F9BB00] rounded-full mr-2"></span>
                                 상품 상세
                             </h4>
                             <p className="text-lg font-semibold text-gray-800 whitespace-pre-line mb-4">
@@ -115,8 +115,8 @@ function ProductDetailComponent() {
 
                         {/* 알레르기 정보 */}
                         <div className="border-t pt-4">
-                            <h4 className="text-lg font-semibold text-emerald-700 mb-4 flex items-center">
-                                <span className="w-1.5 h-6 bg-green-500 rounded-full mr-2"></span>
+                            <h4 className="text-lg font-semibold text-black mb-4 flex items-center">
+                                <span className="w-1.5 h-6 bg-[#F9BB00] rounded-full mr-2"></span>
                                 알레르기 정보
                             </h4>
                             <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-4">
@@ -137,7 +137,7 @@ function ProductDetailComponent() {
                             <div className="grid grid-cols-2 gap-4">
                                 <div className="bg-gray-50 rounded-lg p-4 flex items-center justify-between">
                                     <span className="text-gray-600">가격</span>
-                                    <span className="text-xl font-bold text-green-600">
+                                    <span className="text-xl font-bold text-black">
                                         {product.price?.toLocaleString()}
                                         <span className="text-base ml-1">원</span>
                                     </span>
@@ -171,7 +171,7 @@ function ProductDetailComponent() {
                     <div className="space-x-4">
                         <button
                             onClick={() => navigate(`/product/edit/${pno}`)}
-                            className="px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition"
+                            className="px-6 py-3 bg-[#F9BB00] text-white rounded-lg hover:bg-[#F9BB00] transition"
                         >
                             수정
                         </button>

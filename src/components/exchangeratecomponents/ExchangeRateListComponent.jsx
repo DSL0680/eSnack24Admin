@@ -12,7 +12,6 @@ function ExchangeRateListComponent() {
     const navigate = useNavigate();
 
     const handleClickCreate = () => {
-
         navigate("/exchange-rate/create");
     }
 
@@ -22,7 +21,7 @@ function ExchangeRateListComponent() {
                 <h2 className="text-lg font-bold">환율 관리</h2>
                 <button
                     onClick={handleClickCreate}
-                    className="bg-green-500 text-white font-medium py-2 px-4 rounded-lg shadow-md hover:bg-green-600 transition duration-200"
+                    className="bg-[#F9BB00] text-white font-medium py-2 px-4 rounded-lg shadow-md hover:bg-[#F9BB00] transition duration-200"
                 >
                     환율 등록
                 </button>

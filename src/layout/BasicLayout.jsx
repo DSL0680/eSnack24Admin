@@ -5,7 +5,7 @@ import React from "react";
 
 function BasicLayout({ children }) {
     return (
-        <div className="flex h-screen bg-green-50">
+        <div className="flex h-screen bg-white">
             <FireBase/>
             <Sidebar /> {/* Sidebar on the left */}
 

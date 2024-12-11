@@ -129,13 +129,13 @@ function RequestAllergyDetailComponent() {
                 </div>
                 <div className="flex justify-end space-x-4 mt-8">
                     <button
-                        className="px-6 py-3 bg-teal-500 hover:bg-teal-600 text-white font-semibold rounded-lg shadow-lg transform hover:-translate-y-1 hover:scale-105 transition duration-300 ease-in-out"
+                        className="px-6 py-3 bg-[#F9BB00] hover:bg-[#F9BB00] text-white font-semibold rounded-lg shadow-lg transform hover:-translate-y-1 hover:scale-105 transition duration-300 ease-in-out"
                         onClick={modifyClick}
                     >
                         수정하기
                     </button>
                     <button
-                        className="px-6 py-3 bg-amber-600 hover:bg-amber-700 text-white font-semibold rounded-lg shadow-lg transform hover:-translate-y-1 hover:scale-105 transition duration-300 ease-in-out"
+                        className="px-6 py-3 bg-[#F57C00] hover:bg-[#F57C00] text-white font-semibold rounded-lg shadow-lg transform hover:-translate-y-1 hover:scale-105 transition duration-300 ease-in-out"
                         onClick={removeClick}
                     >
                         삭제하기
@@ -144,7 +144,7 @@ function RequestAllergyDetailComponent() {
 
                 <button
                     onClick={handleBackClick}
-                    className="mt-6 px-4 py-2 bg-blue-500 text-white font-semibold rounded-lg shadow-md hover:bg-blue-600 transition"
+                    className="mt-6 px-4 py-2 bg-[#6B7280] text-white font-semibold rounded-lg shadow-md hover:bg-[#4B5D62] transition"
                 >
                     목록으로 돌아가기
                 </button>

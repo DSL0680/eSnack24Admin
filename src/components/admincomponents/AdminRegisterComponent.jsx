@@ -43,7 +43,7 @@ function AdminRegisterComponent() {
     };
 
     const handleRegisterClick = (e) => {
-        
+
         e.preventDefault();
         setModalOpen(true);
     };
@@ -77,7 +77,7 @@ function AdminRegisterComponent() {
                         value={data.admid}
                         onChange={handleChange}
                         required
-                        className="mt-2 p-3 w-full border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        className="mt-2 p-3 w-full border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-[#F9BB00]"
                     />
                 </div>
 
@@ -91,7 +91,7 @@ function AdminRegisterComponent() {
                         value={data.admpw}
                         onChange={handleChange}
                         required
-                        className="mt-2 p-3 w-full border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        className="mt-2 p-3 w-full border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-[#F9BB00]"
                     />
                 </div>
 
@@ -105,7 +105,7 @@ function AdminRegisterComponent() {
                         value={data.admname}
                         onChange={handleChange}
                         required
-                        className="mt-2 p-3 w-full border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        className="mt-2 p-3 w-full border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-[#F9BB00]"
                     />
                 </div>
 
@@ -120,8 +120,8 @@ function AdminRegisterComponent() {
                                 onClick={() => handleRoleChange(role)}
                                 className={`px-4 py-2 rounded-md text-sm font-medium border focus:outline-none transition-colors ${
                                     data.admrole === role
-                                        ? "bg-blue-600 text-white border-blue-600"
-                                        : "bg-gray-100 text-gray-700 border-gray-300 hover:bg-blue-500 hover:text-white"
+                                        ? "bg-[#F9BB00] text-white border-[#F9BB00]"
+                                        : "bg-gray-100 text-gray-700 border-gray-300 hover:bg-[#F9BB00] hover:text-white"
                                 }`}
                             >
                                 {role}
@@ -141,7 +141,7 @@ function AdminRegisterComponent() {
                     </button>
                     <button
                         type="button"
-                        className="w-5/12 bg-blue-600 text-white py-3 rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        className="w-5/12 bg-[#F9BB00] text-white py-3 rounded-md hover:bg-[#F9BB00]/90 focus:outline-none focus:ring-2 focus:ring-[#F9BB00]"
                         onClick={handleRegisterClick}
                     >
                         등록
