@@ -38,9 +38,9 @@ const AdminLoginComponent = () => {
                     {/* Left Image Section */}
                     <div className="h-48 md:h-auto md:w-1/2 flex justify-center items-center">
                         <img
-                            src="/eSnack24_logo_full.png"
+                            src="/eSnack24Logo2.png"
                             alt="Logo Image"
-                            className="w-48 md:w-64 h-auto object-contain mb-8 cursor-pointer"
+                            className="w-64 md:w-96 h-auto object-contain mb-8 cursor-pointer"
                         />
                     </div>
 
@@ -55,7 +55,7 @@ const AdminLoginComponent = () => {
                                 <label className="block text-sm">
                                     <span className="text-gray-700">Admin ID</span>
                                     <input
-                                        className="block w-full mt-2 text-base border-gray-300 rounded-lg shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-300 focus:ring-opacity-50"
+                                        className="block w-full mt-2 text-base border-gray-300 rounded-lg shadow-sm focus:border-[#F9BB00] focus:ring focus:ring-[#F9BB00] focus:ring-opacity-50"
                                         type="text"
                                         name="admid"
                                         placeholder="Enter Admin ID"
@@ -68,7 +68,7 @@ const AdminLoginComponent = () => {
                                 <label className="block mt-6 text-sm">
                                     <span className="text-gray-700">Password</span>
                                     <input
-                                        className="block w-full mt-2 text-base border-gray-300 rounded-lg shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-300 focus:ring-opacity-50"
+                                        className="block w-full mt-2 text-base border-gray-300 rounded-lg shadow-sm focus:border-[#F9BB00] focus:ring focus:ring-[#F9BB00] focus:ring-opacity-50"
                                         type="password"
                                         name="admpw"
                                         placeholder="Enter Password"
@@ -80,7 +80,7 @@ const AdminLoginComponent = () => {
                                 {/* Submit Button */}
                                 <button
                                     type="submit"
-                                    className="w-full px-6 py-3 mt-6 text-base font-medium text-white bg-blue-600 rounded-lg hover:bg-blue-700 focus:outline-none focus:shadow-outline-blue"
+                                    className="w-full px-6 py-3 mt-6 text-base font-medium text-white bg-[#F9BB00] rounded-lg hover:bg-[#F9BB00]/90 focus:outline-none focus:shadow-outline-yellow"
                                     onClick={handleClick}
                                 >
                                     Log in

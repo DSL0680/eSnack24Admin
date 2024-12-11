@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import {deleteAdmin, editAdmin, getAdminAnswerList, getAdminOne} from "../../api/adminapi/adminAPI.js";
+import { deleteAdmin, editAdmin, getAdminAnswerList, getAdminOne } from "../../api/adminapi/adminAPI.js";
 import { useParams, useNavigate, useSearchParams } from "react-router-dom";
 import CommonModal from "../../common/CommonModal.jsx";
 import CommonTableComponent from "../../common/CommonTableComponent.jsx";
-import {AdminAnswerTableColumn, AdminAnswerTableHeader} from "../../pages/adminpages/AdminIndexPage.jsx";
+import { AdminAnswerTableColumn, AdminAnswerTableHeader } from "../../pages/adminpages/AdminIndexPage.jsx";
 
 const init = {
     admid: '',
@@ -106,7 +106,7 @@ function AdminDetailComponent() {
                     <h2 className="text-3xl font-semibold text-gray-800">관리자 정보 수정</h2>
                     <button
                         type="button"
-                        className="px-4 py-2 text-sm font-medium text-white bg-red-600 rounded-md hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500"
+                        className="px-4 py-2 text-sm font-medium text-white bg-[#F9BB00] rounded-md hover:bg-[#F9BB00] focus:outline-none focus:ring-2 focus:ring-[#F9BB00]"
                         onClick={handleDeleteClick}
                     >
                         삭제
@@ -123,7 +123,7 @@ function AdminDetailComponent() {
                         value={formData.admid}
                         onChange={handleChange}
                         required
-                        className="mt-2 p-3 w-full border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        className="mt-2 p-3 w-full border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-[#F9BB00]"
                     />
                 </div>
 
@@ -137,7 +137,7 @@ function AdminDetailComponent() {
                         value={formData.admpw}
                         onChange={handleChange}
                         required
-                        className="mt-2 p-3 w-full border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        className="mt-2 p-3 w-full border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-[#F9BB00]"
                     />
                 </div>
 
@@ -151,7 +151,7 @@ function AdminDetailComponent() {
                         value={formData.admname}
                         onChange={handleChange}
                         required
-                        className="mt-2 p-3 w-full border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        className="mt-2 p-3 w-full border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-[#F9BB00]"
                     />
                 </div>
 
@@ -166,8 +166,8 @@ function AdminDetailComponent() {
                                 onClick={() => handleRoleChange(role)}
                                 className={`px-4 py-2 rounded-md text-sm font-medium border focus:outline-none transition-colors ${
                                     formData.admrole === role
-                                        ? "bg-blue-600 text-white border-blue-600"
-                                        : "bg-gray-100 text-gray-700 border-gray-300 hover:bg-blue-500 hover:text-white"
+                                        ? "bg-[#F9BB00] text-white border-[#F9BB00]"
+                                        : "bg-gray-100 text-gray-700 border-gray-300 hover:bg-[#F9BB00] hover:text-white"
                                 }`}
                             >
                                 {role}
@@ -213,7 +213,7 @@ function AdminDetailComponent() {
                     </button>
                     <button
                         type="button"
-                        className="w-5/12 bg-blue-600 text-white py-3 rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        className="w-5/12 bg-[#F9BB00] text-white py-3 rounded-md hover:bg-[#F9BB00] focus:outline-none focus:ring-2 focus:ring-[#F9BB00]"
                         onClick={handleUpdateClick}
                     >
                         수정

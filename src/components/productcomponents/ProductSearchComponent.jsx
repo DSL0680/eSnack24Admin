@@ -48,7 +48,7 @@ function ProductSearchComponent() {
                 />
                 <button
                     onClick={handleSearch}
-                    className="bg-green-500 text-white px-4 py-2 rounded-r-md hover:bg-green-600"
+                    className="bg-[#F9BB00] text-white px-4 py-2 rounded-r-md hover:bg-[#F9BB00] focus:outline-none"
                 >
                     검색
                 </button>
@@ -62,8 +62,8 @@ function ProductSearchComponent() {
                         handleSearch();
                     }}
                     className={`px-3 py-1 rounded-md text-sm ${selectedCategory === ''
-                        ? 'bg-green-600 text-white'
-                        : 'bg-gray-200 text-gray-700 hover:bg-green-100'}`}
+                        ? 'bg-[#F9BB00] text-white'
+                        : 'bg-gray-200 text-gray-700 hover:bg-[#F9BB00] hover:text-white'}`}
                 >
                     전체
                 </button>
@@ -76,8 +76,8 @@ function ProductSearchComponent() {
                             handleSearch();
                         }}
                         className={`px-3 py-1 rounded-md text-sm ${selectedCategory === category
-                            ? 'bg-green-600 text-white'
-                            : 'bg-gray-200 text-gray-700 hover:bg-green-100'}`}
+                            ? 'bg-[#F9BB00] text-white'
+                            : 'bg-gray-200 text-gray-700 hover:bg-[#F9BB00] hover:text-white'}`}
                     >
                         {category}
                     </button>

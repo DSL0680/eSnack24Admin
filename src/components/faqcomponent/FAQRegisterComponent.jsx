@@ -127,15 +127,16 @@ function FaqRegisterComponent() {
                     </button>
                     <button
                         type="button"
-                        className="w-5/12 bg-blue-600 text-white py-3 rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        className="w-5/12 px-6 py-3 bg-[#F9BB00] hover:bg-[#F9BB00] text-white font-semibold rounded-lg shadow-lg transform hover:-translate-y-1 hover:scale-105 transition duration-300 ease-in-out"
                         onClick={handleAddClick}
                     >
                         등록
                     </button>
-                </div>
             </div>
-        </>
-    );
+        </div>
+</>
+)
+    ;
 }
 
 export default FaqRegisterComponent;
