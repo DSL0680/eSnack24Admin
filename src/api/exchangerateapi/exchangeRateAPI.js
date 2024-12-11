@@ -1,6 +1,6 @@
 import jwtAxios from "../../util/jwtUtil.js";
 
-const host = 'http://localhost:8080/admin/api/v1/exchange_rate'
+const host = `${import.meta.env.VITE_API_HOST}/exchange_rate`
 
 export const createExchangeRate = async (data) => {
 
