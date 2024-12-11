@@ -17,16 +17,12 @@ function AdminListComponent() {
         setSearchParams({ page: 1 });
 
         if (filter === "ALL") {
-
             setListFn(() => getAllAdminList);
         }  else if(filter === "CS") {
-
-            setListFn(() => getCSAdminList)
-        }else if (filter === "ELSE") {
-
+            setListFn(() => getCSAdminList);
+        } else if (filter === "ELSE") {
             setListFn(() => getElseAdminList);
         }
-
     };
 
     return (
@@ -37,8 +33,8 @@ function AdminListComponent() {
                         key={filter}
                         className={`px-4 py-2 rounded-lg font-semibold text-sm transition-colors duration-300 ${
                             select === filter
-                                ? "bg-green-500 text-white"
-                                : "bg-gray-200 text-gray-600 hover:bg-gray-300"
+                                ? "bg-[#F9BB00] text-white"
+                                : "bg-gray-200 text-gray-600 hover:bg-[#F9BB00] hover:text-white"
                         }`}
                         onClick={() => handleFilterClick(filter)}
                     >

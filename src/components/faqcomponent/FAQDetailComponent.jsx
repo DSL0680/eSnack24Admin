@@ -144,7 +144,7 @@ function FaqDetailComponent() {
 
                 {/* 내용 */}
                 <div>
-                <label htmlFor="fcontent" className="block text-lg font-medium text-gray-700 mb-2">
+                    <label htmlFor="fcontent" className="block text-lg font-medium text-gray-700 mb-2">
                         내용
                     </label>
                     <textarea
@@ -160,14 +160,14 @@ function FaqDetailComponent() {
                 <div className="flex justify-end space-x-4 mt-6">
                     <button
                         onClick={handleEditClick}
-                        className="px-6 py-3 text-white bg-blue-600 rounded-lg shadow-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+                        className="px-6 py-3 text-white bg-[#F9BB00] hover:bg-[#F9BB00] rounded-lg shadow-lg transform hover:-translate-y-1 hover:scale-105 transition duration-300 ease-in-out focus:outline-none focus:ring-2 focus:ring-[#F9BB00] focus:ring-offset-2"
                     >
                         수정
                     </button>
 
                     <button
                         onClick={handleRemoveClick}
-                        className="px-6 py-3 text-white bg-red-600 rounded-lg shadow-lg hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2"
+                        className="px-6 py-3 text-white bg-[#F57C00] hover:bg-[#F57C00] rounded-lg shadow-lg transform hover:-translate-y-1 hover:scale-105 transition duration-300 ease-in-out focus:outline-none focus:ring-2 focus:ring-[#F57C00] focus:ring-offset-2"
                     >
                         삭제
                     </button>

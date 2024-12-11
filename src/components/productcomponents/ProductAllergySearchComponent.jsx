@@ -71,7 +71,7 @@ function ProductAllergySearchComponent() {
                 />
                 <button
                     onClick={handleSearch}
-                    className="bg-green-500 text-white px-4 py-2 rounded-r-md hover:bg-green-600"
+                    className="bg-[#F9BB00] text-black px-4 py-2 rounded-r-md hover:bg-[#F9BB00]/90 transition"
                 >
                     검색
                 </button>
@@ -85,10 +85,10 @@ function ProductAllergySearchComponent() {
                             key={allergy.id}
                             onClick={() => handleAllergyToggle(allergy.id)}
                             className={`px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200 
-                    ${selectedAllergies.includes(allergy.id)
-                                ? 'bg-green-500 text-white'
+                                ${selectedAllergies.includes(allergy.id)
+                                ? 'bg-[#F9BB00] text-black'
                                 : 'bg-gray-100 text-gray-700 hover:bg-gray-200'}
-                    ${selectedAllergies.includes('none') ? 'opacity-50 cursor-not-allowed' : ''}`}
+                                ${selectedAllergies.includes('none') ? 'opacity-50 cursor-not-allowed' : ''}`}
                             disabled={selectedAllergies.includes('none')}
                         >
                             {allergy.name}
@@ -97,8 +97,8 @@ function ProductAllergySearchComponent() {
                     <button
                         onClick={() => handleAllergyToggle('none')}
                         className={`px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200 col-span-2
-                ${selectedAllergies.includes('none')
-                            ? 'bg-green-500 text-white'
+                            ${selectedAllergies.includes('none')
+                            ? 'bg-[#F9BB00] text-black'
                             : 'bg-gray-100 text-gray-700 hover:bg-gray-200'}`}
                     >
                         알레르기 유발성분 없음

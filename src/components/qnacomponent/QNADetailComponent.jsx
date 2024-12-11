@@ -183,13 +183,13 @@ function QnaDetailComponent() {
             {/* 버튼 섹션 */}
             <div className="flex justify-end space-x-4">
                 <button
-                    className="px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-lg shadow-md transition duration-200 ease-in-out"
+                    className="px-6 py-3 bg-[#F9BB00] hover:bg-[#F9BB00] text-white font-semibold rounded-lg shadow-lg transform hover:-translate-y-1 hover:scale-105 transition duration-300 ease-in-out"
                     onClick={handleEditClick}
                 >
                     수정하기
                 </button>
                 <button
-                    className="px-6 py-3 bg-red-500 hover:bg-red-600 text-white font-semibold rounded-lg shadow-md transition duration-200 ease-in-out"
+                    className="px-6 py-3 bg-[#F57C00] hover:bg-[#F57C00] text-white font-semibold rounded-lg shadow-lg transform hover:-translate-y-1 hover:scale-105 transition duration-300 ease-in-out"
                     onClick={handleRemoveClick}
                 >
                     삭제하기

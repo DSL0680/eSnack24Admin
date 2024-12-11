@@ -84,22 +84,22 @@ function ReviewDetailComponent() {
                 <div className="flex justify-end space-x-2">
                     <button
                         onClick={() => navigate('/review/list')}
-                        className="px-6 py-3 bg-gray-500 text-white rounded-lg hover:bg-gray-600 transition"
+                        className="mt-6 px-6 py-2 bg-[#6B7280] text-white font-semibold rounded-lg shadow-md hover:bg-[#4B5D62] transition"
                     >
                         목록으로
                     </button>
                     <button
                         onClick={handleDeleteReview}
-                        className="px-6 py-3 bg-red-600 text-white rounded-lg hover:bg-red-700 transition"
+                        className="mt-6 px-6 py-2 bg-[#F57C00] text-white font-semibold rounded-lg shadow-md hover:bg-[#F57C00] transition"
                     >
                         삭제
                     </button>
                 </div>
             </div>
+            </div>
         </div>
-</div>
-)
-    ;
+    )
+        ;
 }
 
 export default ReviewDetailComponent;

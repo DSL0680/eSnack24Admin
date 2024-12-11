@@ -151,7 +151,7 @@ function UserDetailComponent() {
 
             <button
                 onClick={handleBackClick}
-                className="mt-6 px-4 py-2 bg-blue-500 text-white font-semibold rounded-lg shadow-md hover:bg-blue-600 transition"
+                className="mt-6 px-4 py-2 bg-[#6B7280] text-white font-semibold rounded-lg shadow-md hover:bg-[#4B5D62] transition"
             >
                 목록으로 돌아가기
             </button>

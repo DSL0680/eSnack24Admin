@@ -131,14 +131,14 @@ function Sidebar() {
     return (
         <>
             {modalOpen && <CommonModal
-            isOpen={modalOpen}
-            msg={"로그아웃"}
-            fn={logoutFn}
-            closeModal={() => {
-                setModalOpen(false)
-                navigate('/');
-            }}
-            cancelFn={() => setModalOpen(false)}>
+                isOpen={modalOpen}
+                msg={"로그아웃"}
+                fn={logoutFn}
+                closeModal={() => {
+                    setModalOpen(false)
+                    navigate('/');
+                }}
+                cancelFn={() => setModalOpen(false)}>
             </CommonModal>}
 
             <div>
@@ -146,15 +146,15 @@ function Sidebar() {
                     className={`z-20 ${sidebarOpen ? 'block' : 'hidden'} w-64 h-screen overflow-y-auto bg-white md:block flex-shrink-0`}>
                     <div className="py-4 text-gray-500">
                         <Link className="ml-6 text-lg font-bold text-gray-800 flex items-center" to="/graph">
-                            <img src="/eSnack24_logo_full.png" alt="Logo Image" className="mr-2 h-8"/>
-                            eSnack24
+                            {/*<img src="/eSnack24_logo_full.png" alt="Logo Image" className="mr-2 h-8"/>*/}
+                            <img src="/eSnack24Logo2.png" alt="Logo Image" className="mr-2 h-8"/>
                         </Link>
                         <ul className="mt-6">
                             {menuItems.map((item, index) => (
-                                <li key={index} className="relative px-6 py-4"> {/* 간격을 늘리기 위해 py-4로 변경 */}
+                                <li key={index} className="relative px-6 py-4">
                                     {location.pathname === item.path && (
                                         <span
-                                            className="absolute inset-y-0 left-0 w-1 bg-green-600 rounded-tr-lg rounded-br-lg"
+                                            className="absolute inset-y-0 left-0 w-1 bg-[#F9BB00] rounded-tr-lg rounded-br-lg"
                                             aria-hidden="true"></span>
                                     )}
                                     <div
@@ -163,7 +163,7 @@ function Sidebar() {
                                     >
                                         {item.hasDropdown ? (
                                             <span
-                                                className={`inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 ${activeDropdown === item.name ? 'text-green-600' : 'text-gray-800 hover:text-green-600'}`}>
+                                                className={`inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 ${activeDropdown === item.name ? 'text-[#F9BB00]' : 'text-gray-800 hover:text-[#F9BB00]'}`}>
                                             <svg className="w-5 h-5" aria-hidden="true" fill="none"
                                                  strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"
                                                  viewBox="0 0 24 24" stroke="currentColor">
@@ -178,7 +178,7 @@ function Sidebar() {
                                         </span>
                                         ) : (
                                             <Link
-                                                className={`inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 ${location.pathname === item.path ? 'text-green-600' : 'text-gray-800 hover:text-green-600'}`}
+                                                className={`inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 ${location.pathname === item.path ? 'text-[#F9BB00]' : 'text-gray-800 hover:text-[#F9BB00]'}`}
                                                 to={item.path}
                                             >
                                                 <svg className="w-5 h-5" aria-hidden="true" fill="none"
@@ -198,7 +198,7 @@ function Sidebar() {
                                                     <li key={subIndex}>
                                                         <Link
                                                             to={subItem.path}
-                                                            className={`text-gray-700 hover:text-green-600 ${location.pathname === subItem.path ? 'text-green-600 font-semibold' : ''}`}
+                                                            className={`text-gray-700 hover:text-[#F9BB00] ${location.pathname === subItem.path ? 'text-[#F9BB00] font-semibold' : ''}`}
                                                         >
                                                             {subItem.name}
                                                         </Link>

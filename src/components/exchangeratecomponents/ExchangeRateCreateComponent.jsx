@@ -124,7 +124,7 @@ const ExchangeRateCreateComponent = () => {
                 <div className="mt-6 text-right">
                     <button
                         onClick={handleClickCreate}
-                        className="bg-green-500 text-white font-medium px-6 py-2 rounded-lg shadow-md hover:bg-green-600 transition duration-200"
+                        className="w-full md:w-auto px-6 py-2 bg-[#F9BB00] hover:bg-[#F9BB00] text-white font-semibold rounded-lg shadow-lg transform hover:-translate-y-1 hover:scale-105 transition duration-300 ease-in-out"
                     >
                         저장
                     </button>

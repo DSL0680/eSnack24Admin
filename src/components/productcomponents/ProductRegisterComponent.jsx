@@ -156,7 +156,7 @@ function ProductRegisterComponent() {
                                 onClick={() => handleAllergyToggle(allergy.id)}
                                 className={`p-2 rounded ${
                                     formData.allergySelectList.includes(allergy.id)
-                                        ? 'bg-green-500 text-white'
+                                        ? 'bg-[#F9BB00] text-white'
                                         : 'bg-gray-200'
                                 }`}
                             >
@@ -201,7 +201,7 @@ function ProductRegisterComponent() {
                     </button>
                     <button
                         type="submit"
-                        className="px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600"
+                        className="px-4 py-2 bg-[#F9BB00] text-white rounded hover:bg-[#F9BB00] shadow-lg"
                     >
                         등록
                     </button>

@@ -30,48 +30,37 @@ const ExchangeRateDetailComponent = () => {
     const admno = auth.admno;
 
     useEffect(() => {
-
         setUpdateData({ ...updateData, erno: param.erno, admno: admno });
 
         readExchangeRate(param.erno).then((res) => {
-
             setData(res);
         });
     }, [param.erno]);
 
     const handleUpdateClick = (e) => {
-
         e.preventDefault();
-        setMsg("수정")
+        setMsg("수정");
         setUpdateData({ ...updateData, erno: param.erno, admno: admno });
 
-        console.log(param.erno);
-        console.log(admno);
-        console.log(updateData);
-
         setModalFn(() => () => editExchangeRate(updateData));
-        setCloseFn(() => () => setModalOpen(false))
+        setCloseFn(() => () => setModalOpen(false));
         setModalOpen(true);
     };
 
     const handleBackClick = () => {
-
         if (page) navigate(`/exchange-rate/list?page=${page}`);
         else navigate('/exchange-rate/list');
     };
 
     const handleDeleteClick = () => {
-
-        setMsg("삭제")
-        setModalFn(() => () => deleteExchangeRate({admno: admno, erno: param.erno}))
+        setMsg("삭제");
+        setModalFn(() => () => deleteExchangeRate({admno: admno, erno: param.erno}));
         setCloseFn(() => () => {
-
-            setModalOpen(false)
-
+            setModalOpen(false);
             handleBackClick();
-        })
+        });
         setModalOpen(true);
-    }
+    };
 
     return (
         <>
@@ -111,7 +100,7 @@ const ExchangeRateDetailComponent = () => {
                         <input
                             type="number"
                             step="0.01"
-                            value={updateData.rate !== "" ? updateData.rate : data.rate} // 업데이트된 값이 있으면 updateData.rate, 없으면 data.rate
+                            value={updateData.rate !== "" ? updateData.rate : data.rate}
                             onChange={(e) =>
                                 setUpdateData((prev) => ({...prev, rate: e.target.value}))
                             }
@@ -141,21 +130,21 @@ const ExchangeRateDetailComponent = () => {
                 <div className="mt-6 text-right">
                     <button
                         onClick={handleUpdateClick}
-                        className="bg-green-500 text-white font-medium px-6 py-2 rounded-lg shadow-md hover:bg-green-600 transition duration-200"
+                        className="w-full md:w-auto px-6 py-3 bg-[#F9BB00] hover:bg-[#F9BB00] text-white font-semibold rounded-lg shadow-lg transform hover:-translate-y-1 hover:scale-105 transition duration-300 ease-in-out"
                     >
                         저장
                     </button>
                 </div>
-                <div className="mt-6 flex justify-end space-x-4">
+                <div className="mt-6 flex flex-wrap justify-end space-x-4 gap-4">
                     <button
                         onClick={handleDeleteClick}
-                        className="bg-red-500 text-white font-medium px-6 py-2 rounded-lg shadow-md hover:bg-red-600 transition duration-200"
+                        className="w-full md:w-auto px-6 py-3 bg-[#F57C00] hover:bg-[#F57C00] text-white font-semibold rounded-lg shadow-lg transform hover:-translate-y-1 hover:scale-105 transition duration-300 ease-in-out"
                     >
                         삭제
                     </button>
                     <button
                         onClick={handleBackClick}
-                        className="bg-gray-500 text-white font-medium px-6 py-2 rounded-lg shadow-md hover:bg-gray-600 transition duration-200"
+                        className="w-full md:w-auto px-6 py-3 bg-[#6B7280] text-white font-semibold rounded-lg shadow-md hover:bg-[#4B5D62] transition"
                     >
                         목록
                     </button>
@@ -165,6 +154,5 @@ const ExchangeRateDetailComponent = () => {
         </>
     );
 };
-
 
 export default ExchangeRateDetailComponent;
