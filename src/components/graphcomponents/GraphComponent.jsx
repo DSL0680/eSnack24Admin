@@ -209,7 +209,17 @@ function GraphComponent() {
                 enabled: true,
             },
         },
+        scales: {
+            y: {
+                beginAtZero: true,
+                suggestedMax: (context) => {
+                    const max = Math.max(...context.chart.data.datasets[0].data);
+                    return max * 1.1;
+                },
+            },
+        },
     };
+
 
     return (
         <div className="bg-gray-50 min-h-screen py-8">
