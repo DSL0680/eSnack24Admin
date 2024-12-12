@@ -48,7 +48,7 @@ function ProductDetailComponent() {
                     fn={() => deleteProduct(pno)}
                     closeModal={() => {
                         setModalOpen(false);
-                        navigate('/product/list');
+                        navigate('/product/search');
                     }}
                     cancelFn={() => setModalOpen(false)}
                 />

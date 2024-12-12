@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { getProductDetail, editProduct } from '../../api/productapi/productAPI';
 
@@ -35,7 +35,7 @@ function ProductEditComponent() {
             const allergyList = res.allergyInfo
                 ? res.allergyInfo.split(',')
                     .map(id => Number(id))
-                    .filter(id => !isNaN(id))  // NaN 값 제거
+                    .filter(id => !isNaN(id))
                 : [];
 
             setFormData({
@@ -87,14 +87,21 @@ function ProductEditComponent() {
         e.preventDefault();
         try {
             const submitData = { ...formData };
-            submitData.price = Number(submitData.price);
-            submitData.pqty = Number(submitData.pqty);
-            if (isNaN(submitData.price) || isNaN(submitData.pqty)) {
-                alert('가격과 수량은 숫자여야 합니다.');
-                return;
+
+            // 새 이미지 업로드 여부 확인
+            if (submitData.pfilename && submitData.pfilename.startsWith('data:image')) {
+                // 새 이미지 업로드된 경우 전체 데이터 수정
+                submitData.price = Number(submitData.price);
+                submitData.pqty = Number(submitData.pqty);
+                await editProduct(pno, submitData);
+            } else {
+                // 이미지 제외한 데이터만 수정
+                const { pfilename, ...updateData } = submitData;
+                updateData.price = Number(updateData.price);
+                updateData.pqty = Number(updateData.pqty);
+                await editProduct(pno, updateData);
             }
 
-            await editProduct(pno, submitData);
             navigate('/product/search');
         } catch (error) {
             console.error('제품 수정 실패:', error);
@@ -180,6 +187,50 @@ function ProductEditComponent() {
                                 value={formData.pcontent_en}
                                 onChange={handleInputChange}
                                 placeholder="Product Description (English)"
+                                className="w-full p-2 border border-[#F9BB00] rounded"
+                                rows="3"
+                            />
+                        </div>
+                    </div>
+
+                    <div>
+                        <h3 className="text-lg font-semibold mb-4 text-black">일본어 정보</h3>
+                        <div className="space-y-4">
+                            <input
+                                type="text"
+                                name="ptitle_ja"
+                                value={formData.ptitle_ja}
+                                onChange={handleInputChange}
+                                placeholder="製品名（日本語）"
+                                className="w-full p-2 border border-[#F9BB00] rounded"
+                            />
+                            <textarea
+                                name="pcontent_en"
+                                value={formData.pcontent_ja}
+                                onChange={handleInputChange}
+                                placeholder="製品説明（日本語）"
+                                className="w-full p-2 border border-[#F9BB00] rounded"
+                                rows="3"
+                            />
+                        </div>
+                    </div>
+
+                    <div>
+                        <h3 className="text-lg font-semibold mb-4 text-black">중국어 정보</h3>
+                        <div className="space-y-4">
+                            <input
+                                type="text"
+                                name="ptitle_en"
+                                value={formData.ptitle_zh}
+                                onChange={handleInputChange}
+                                placeholder="产品名称（中文）"
+                                className="w-full p-2 border border-[#F9BB00] rounded"
+                            />
+                            <textarea
+                                name="pcontent_en"
+                                value={formData.pcontent_zh}
+                                onChange={handleInputChange}
+                                placeholder="产品描述（中文）"
                                 className="w-full p-2 border border-[#F9BB00] rounded"
                                 rows="3"
                             />
