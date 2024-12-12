@@ -61,7 +61,7 @@ function CommonTableComponent({ name, tableHeader, column, listFn }) {
                 <span
                     className={`px-2 py-1 rounded-lg ${
                         value
-                            ? "bg-[#F9BB00] text-white font-bold"
+                            ? "bg-green-200 text-white font-bold"
                             : "bg-red-200 text-red-800 font-bold"
                     }`}
                 >
