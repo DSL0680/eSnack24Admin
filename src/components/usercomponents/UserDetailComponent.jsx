@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useNavigate, useParams, useSearchParams } from "react-router-dom";
 import { getDetailUser } from "../../api/userapi/userAPI.js";
-import { formatDate } from "../../common/CommonTableComponent.jsx";
+import {formatDate, formatDateNoTime} from "../../common/CommonTableComponent.jsx";
 
 function UserDetailComponent() {
     const param = useParams();
@@ -65,7 +65,7 @@ function UserDetailComponent() {
                     <strong>전화번호:</strong> {userData.callNumber}
                 </p>
                 <p className="text-gray-700 mb-2">
-                    <strong>생년월일:</strong> {formatDate(userData.birth)}
+                    <strong>생년월일:</strong> {formatDateNoTime(userData.birth)}
                 </p>
                 <p className="text-gray-700 mb-2">
                     <strong>성별:</strong> {userData.gender === "M" ? "남성" : "여성"}
