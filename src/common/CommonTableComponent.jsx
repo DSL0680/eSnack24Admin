@@ -28,6 +28,16 @@ export const formatDate = (dateString) => {
     });
 };
 
+export const formatDateNoTime = (dateString) => {
+    const date = new Date(dateString);
+    date.setHours(date.getHours() + 9);
+    return date.toLocaleString("ko-KR", {
+        year: "numeric",
+        month: "2-digit",
+        day: "2-digit"
+    });
+};
+
 const getFormattedArray = (value) => {
     if (Array.isArray(value)) {
         return value.join(", ");
@@ -61,7 +71,7 @@ function CommonTableComponent({ name, tableHeader, column, listFn }) {
                 <span
                     className={`px-2 py-1 rounded-lg ${
                         value
-                            ? "bg-green-200 text-white font-bold"
+                            ? "bg-green-200 text-green-800 font-bold"
                             : "bg-red-200 text-red-800 font-bold"
                     }`}
                 >
@@ -69,8 +79,13 @@ function CommonTableComponent({ name, tableHeader, column, listFn }) {
                 </span>
             );
         }
-        if (col.endsWith("date") || col.endsWith("birth")) {
+        if (col.endsWith("date")) {
+
             return formatDate(value);
+        }
+        if (col.endsWith("birth")) {
+
+            return formatDateNoTime(value);
         }
         if (col.endsWith("List")) {
             return getFormattedArray(value);
